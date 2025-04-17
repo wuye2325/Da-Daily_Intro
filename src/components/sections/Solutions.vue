@@ -117,29 +117,37 @@ const productAdvantages = [
 </script>
 
 <style scoped>
-/* Linear 风格背景 - 反色区域 */
-.linear-section-bg-alt {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+/* CSS变量定义 */
+:root {
+  --color-text-primary-light: #1f2937;
+  --color-text-secondary-light: #4b5563;
+  --color-text-primary-dark: #f9fafb;
+  --color-text-secondary-dark: #d1d5db;
 }
 
-:root.dark .linear-section-bg-alt {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+/* Linear 风格背景 - 反色区域 */
+.linear-section-bg-alt {
+  background: var(--linear-bg-primary-light);
+}
+
+[data-theme="dark"] .linear-section-bg-alt {
+  background: var(--linear-bg-primary-dark);
 }
 
 /* 高亮卡片 */
 .linear-highlight-card {
-  @apply rounded-lg p-8 relative overflow-hidden;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(79, 70, 229, 0.9) 100%);
+  @apply rounded-xl p-8 relative overflow-hidden;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.85) 0%, rgba(79, 70, 229, 0.85) 100%);
   color: white;
-  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
+  box-shadow: var(--linear-shadow-primary);
+  border: var(--linear-border-light-primary);
+  backdrop-filter: var(--linear-blur);
   will-change: transform;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .linear-highlight-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) rotate(0.5deg);
   box-shadow: 0 12px 48px rgba(37, 99, 235, 0.4);
 }
 
@@ -150,60 +158,64 @@ const productAdvantages = [
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1));
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3));
   z-index: 1;
 }
 
 /* 核心价值卡片 */
 .linear-value-card {
-  @apply rounded-lg p-6 text-center relative overflow-hidden;
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  backdrop-filter: blur(12px);
+  @apply rounded-xl p-6 text-center relative overflow-hidden;
+  background: var(--linear-bg-secondary-light);
+  border: var(--linear-border-light-accent);
+  box-shadow: var(--linear-shadow-secondary);
+  backdrop-filter: var(--linear-blur);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateZ(0);
   will-change: transform, box-shadow;
 }
 
-:root.dark .linear-value-card {
-  background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+[data-theme="dark"] .linear-value-card {
+  background: var(--linear-bg-secondary-dark);
+  border: var(--linear-border-dark);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .linear-value-card:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border: var(--linear-border-light-primary);
 }
 
-:root.dark .linear-value-card:hover {
+[data-theme="dark"] .linear-value-card:hover {
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* 产品优势卡片 */
 .linear-advantage-card {
-  @apply rounded-lg p-6 relative overflow-hidden;
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-  backdrop-filter: blur(12px);
+  @apply rounded-xl p-6 relative overflow-hidden;
+  background: var(--linear-bg-secondary-light);
+  border: var(--linear-border-light-accent);
+  box-shadow: var(--linear-shadow-primary);
+  backdrop-filter: var(--linear-blur);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-:root.dark .linear-advantage-card {
-  background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+[data-theme="dark"] .linear-advantage-card {
+  background: var(--linear-bg-secondary-dark);
+  border: var(--linear-border-dark);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .linear-advantage-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) rotate(0.5deg);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border: var(--linear-border-light-primary);
 }
 
-:root.dark .linear-advantage-card:hover {
+[data-theme="dark"] .linear-advantage-card:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* 装饰性分隔线 */
@@ -214,7 +226,55 @@ const productAdvantages = [
   background: linear-gradient(to right, rgba(37, 99, 235, 0.8), rgba(37, 99, 235, 0.2));
 }
 
-:root.dark .linear-divider {
+[data-theme="dark"] .linear-divider {
   background: linear-gradient(to right, rgba(96, 165, 250, 0.8), rgba(96, 165, 250, 0.2));
 }
-</style> 
+
+/* 文本颜色增强 */
+.linear-value-card h4 {
+  color: var(--color-text-primary-light);
+  transition: color 0.2s ease;
+}
+
+[data-theme="dark"] .linear-value-card h4 {
+  color: var(--color-text-primary-dark);
+}
+
+.linear-value-card:hover h4 {
+  color: #3b82f6;
+}
+
+[data-theme="dark"] .linear-value-card:hover h4 {
+  color: #60a5fa;
+}
+
+.linear-value-card p {
+  color: var(--color-text-secondary-light);
+  transition: color 0.2s ease;
+}
+
+[data-theme="dark"] .linear-value-card p {
+  color: var(--color-text-secondary-dark);
+}
+
+.linear-value-card:hover p {
+  color: var(--color-text-primary-light);
+}
+
+[data-theme="dark"] .linear-value-card:hover p {
+  color: var(--color-text-primary-dark);
+}
+
+.linear-advantage-card li {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.linear-advantage-card:hover li {
+  color: var(--color-text-primary-light);
+  transform: translateX(2px);
+}
+
+[data-theme="dark"] .linear-advantage-card:hover li {
+  color: var(--color-text-primary-dark);
+}
+</style>

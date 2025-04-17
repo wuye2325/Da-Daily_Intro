@@ -212,26 +212,31 @@ const communityFeatures = [
 </script>
 
 <style scoped>
-/* 背景样式 */
+/* 背景样式 - 更新为Linear风格 */
 .linear-section-bg {
-  @apply bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900;
+  @apply py-16;
+  background: var(--linear-bg-primary-light);
 }
 
-/* 特性卡片 */
+[data-theme="dark"] .linear-section-bg {
+  background: var(--linear-bg-primary-dark);
+}
+
+/* 特性卡片 - 增强毛玻璃效果 */
 .linear-feature-card {
   @apply rounded-2xl p-8 relative overflow-hidden;
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-  backdrop-filter: blur(12px);
+  background: var(--linear-bg-secondary-light);
+  border: var(--linear-border-light-accent);
+  box-shadow: var(--linear-shadow-primary);
+  backdrop-filter: var(--linear-blur);
   transform: translateZ(0);
   will-change: transform;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-:root.dark .linear-feature-card {
-  background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+[data-theme="dark"] .linear-feature-card {
+  background: var(--linear-bg-secondary-dark);
+  border: var(--linear-border-dark);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
@@ -243,75 +248,155 @@ const communityFeatures = [
   right: 0;
   height: 1px;
   background: linear-gradient(to right, 
-    rgba(0, 0, 0, 0.02), 
-    rgba(0, 0, 0, 0.06), 
-    rgba(0, 0, 0, 0.02));
+    rgba(255, 255, 255, 0.5), 
+    rgba(255, 255, 255, 0.8), 
+    rgba(255, 255, 255, 0.5));
   z-index: 1;
 }
 
-:root.dark .linear-feature-card::before {
+[data-theme="dark"] .linear-feature-card::before {
   background: linear-gradient(to right, 
     rgba(255, 255, 255, 0.05), 
     rgba(255, 255, 255, 0.1), 
     rgba(255, 255, 255, 0.05));
 }
 
-/* 子特性 */
+/* 添加卡片悬停效果 */
+.linear-feature-card:hover {
+  transform: translateY(-2px) rotate(0.5deg);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+  border: var(--linear-border-light-primary);
+}
+
+[data-theme="dark"] .linear-feature-card:hover {
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* 添加流光效果 */
+.linear-feature-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.15) 100%);
+  background-size: 200% 200%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+  animation: gradientFlow 5s ease infinite;
+  pointer-events: none;
+}
+
+.linear-feature-card:hover::after {
+  opacity: 1;
+}
+
+[data-theme="dark"] .linear-feature-card::after {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.06) 100%);
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+/* 子特性 - 优化悬停效果 */
 .linear-sub-feature {
   @apply relative transition-all duration-300 transform;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
 }
 
 .linear-sub-feature:hover {
   transform: translateY(-2px);
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.03) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.9) 100%);
+  border: var(--linear-border-light-secondary);
+  box-shadow: var(--linear-shadow-secondary);
 }
 
-:root.dark .linear-sub-feature:hover {
+[data-theme="dark"] .linear-sub-feature:hover {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* 图标容器 */
+/* 图标容器 - 增强光影效果 */
 .linear-icon-wrapper {
   @apply flex items-center justify-center rounded-full mr-3;
   width: 48px;
   height: 48px;
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.2) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  border: 0.5px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--linear-shadow-inner), 0 2px 8px rgba(37, 99, 235, 0.1);
+  border: var(--linear-border-light-secondary);
+  backdrop-filter: var(--linear-blur);
+  transition: all 0.3s ease;
 }
 
-:root.dark .linear-icon-wrapper {
+.linear-icon-wrapper:hover {
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: var(--linear-shadow-inner), 0 4px 12px rgba(37, 99, 235, 0.15);
+}
+
+[data-theme="dark"] .linear-icon-wrapper {
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.3) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 2px 8px rgba(0, 0, 0, 0.2);
   border: 0.5px solid rgba(255, 255, 255, 0.1);
 }
 
-/* 复选图标 */
+/* 复选图标 - 优化阴影效果 */
 .linear-check-icon {
   @apply flex-shrink-0 mt-0.5 mr-2;
   width: 20px;
   height: 20px;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  transition: all 0.2s ease;
 }
 
-:root.dark .linear-check-icon {
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+.linear-sub-feature:hover .linear-check-icon {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
+  transform: scale(1.05);
 }
 
-/* 图片容器 */
+[data-theme="dark"] .linear-check-icon {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+[data-theme="dark"] .linear-sub-feature:hover .linear-check-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+/* 图片容器 - 增强毛玻璃效果 */
 .linear-image-container {
-  @apply rounded-lg overflow-hidden relative;
-  background: linear-gradient(135deg, #f8f8f8 0%, #eaeaea 100%);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 
-              inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  transition: all 0.3s ease;
+  @apply rounded-xl overflow-hidden relative;
+  background: var(--linear-bg-tertiary-light);
+  border: var(--linear-border-light-primary);
+  box-shadow: var(--linear-shadow-primary), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  backdrop-filter: var(--linear-blur);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   /* 使用普通 CSS 实现 4:3 宽高比 */
   position: relative;
   width: 100%;
   padding-top: 75%; /* 3/4 = 75% */
+}
+
+.linear-image-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, 
+    rgba(255, 255, 255, 0.3), 
+    rgba(255, 255, 255, 0.8), 
+    rgba(255, 255, 255, 0.3));
+  z-index: 2;
 }
 
 .linear-image-container img {
@@ -321,23 +406,28 @@ const communityFeatures = [
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-:root.dark .linear-image-container {
+[data-theme="dark"] .linear-image-container {
   background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: var(--linear-border-dark);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
               inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .linear-image-container:hover {
   transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 
-              inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
-:root.dark .linear-image-container:hover {
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 
+.linear-image-container:hover img {
+  transform: scale(1.03);
+}
+
+[data-theme="dark"] .linear-image-container:hover {
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4), 
               inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
-</style> 
+</style>

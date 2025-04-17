@@ -14,31 +14,29 @@ alwaysApply: true
      - 主背景：`linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)`
      - 次要背景：`linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%)`
    - 浅色模式
-     - 主背景：`linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%)`
-     - 次要背景：`linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)`
+     - 主背景：`linear-gradient(135deg, #f2f0e6 0%, #eae7d9 100%)` // 更新为浅米色调
+     - 次要背景：`linear-gradient(135deg, #ffffff 0%, #f9f8f3 100%)` // 更新为更柔和的白色
      - 三级背景：`linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%)`
    - 磨砂玻璃效果
      - 深色模式：`background: rgba(255, 255, 255, 0.05)`
-     - 浅色模式：`background: rgba(255, 255, 255, 0.8)`
-     - 通用：`backdrop-filter: blur(12px)`
+     - 浅色模式：`background: rgba(255, 255, 255, 0.65)` // 降低透明度增强毛玻璃感
+     - 通用：`backdrop-filter: blur(15px)` // 增加模糊程度
      - 边缘：
        - 深色模式：`border: 1px solid rgba(255, 255, 255, 0.1)`
-       - 浅色模式：`border: 1px solid rgba(0, 0, 0, 0.08)`
+       - 浅色模式：`border: 1px solid rgba(255, 255, 255, 0.5)` // 更新为白色边框增强通透感
 
 2. **描边与光效**
    - 纤细描边设计
      - 边框宽度：`0.5px` 或 `1px`
      - 深色模式：`rgba(255, 255, 255, 0.1)`
      - 浅色模式：
-       - 一级描边：`rgba(0, 0, 0, 0.08)`
-       - 二级描边：`rgba(0, 0, 0, 0.05)`
-       - 强调描边：`rgba(0, 0, 0, 0.12)`
-   - 动态流光效果
-     - 深色模式：使用冷色调渐变
-     - 浅色模式：
-       - 主流光：`linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.05) 100%)`
-       - 次流光：`linear-gradient(135deg, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.03) 100%)`
-     - 通用实现：`@keyframes gradientFlow` + `background-size: 200% 200%`
+       - 一级描边：`rgba(255, 255, 255, 0.8)` // 更新为白色描边
+       - 二级描边：`rgba(0, 0, 0, 0.03)` // 降低不透明度
+       - 强调描边：`rgba(0, 0, 0, 0.08)` // 降低不透明度
+   - 点缀色系
+     - 浅绿色：`rgba(142, 213, 155, 0.85)` // 添加参考图中的浅绿色
+     - 蓝色：`rgba(82, 109, 230, 0.85)` // 添加参考图中的蓝色
+     - 应用场景：按钮、标签、图标等元素
 
 3. **卡片设计**
    - 悬浮效果
@@ -93,19 +91,27 @@ alwaysApply: true
   --linear-bg-secondary-dark: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
   --linear-border-dark: 1px solid rgba(255, 255, 255, 0.1);
   
-  /* 浅色模式 */
-  --linear-bg-primary-light: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
-  --linear-bg-secondary-light: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+  /* 浅色模式 - 更新色调 */
+  --linear-bg-primary-light: linear-gradient(135deg, #f2f0e6 0%, #eae7d9 100%);
+  --linear-bg-secondary-light: linear-gradient(135deg, #ffffff 0%, #f9f8f3 100%);
   --linear-bg-tertiary-light: linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%);
-  --linear-border-light-primary: 1px solid rgba(0, 0, 0, 0.08);
-  --linear-border-light-secondary: 1px solid rgba(0, 0, 0, 0.05);
-  --linear-border-light-accent: 1px solid rgba(0, 0, 0, 0.12);
+  --linear-border-light-primary: 1px solid rgba(255, 255, 255, 0.5);
+  --linear-border-light-secondary: 1px solid rgba(255, 255, 255, 0.3);
+  --linear-border-light-accent: 1px solid rgba(0, 0, 0, 0.08);
+  
+  /* 点缀色系 */
+  --linear-accent-green: rgba(142, 213, 155, 0.85);
+  --linear-accent-blue: rgba(82, 109, 230, 0.85);
   
   /* 通用 */
-  --linear-blur: blur(12px);
-  --linear-shadow-primary: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --linear-shadow-secondary: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --linear-shadow-inner: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --linear-blur: blur(15px);
+  --linear-shadow-primary: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --linear-shadow-secondary: 0 2px 8px rgba(0, 0, 0, 0.03);
+  --linear-shadow-inner: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  
+  /* 毛玻璃效果 */
+  --linear-glass-light: rgba(255, 255, 255, 0.65);
+  --linear-glass-dark: rgba(255, 255, 255, 0.05);
 }
 
 /* 深色模式 */
@@ -134,18 +140,22 @@ module.exports = {
       backgroundImage: {
         'linear-primary-dark': 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
         'linear-secondary-dark': 'linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%)',
-        'linear-primary-light': 'linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%)',
-        'linear-secondary-light': 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)',
+        'linear-primary-light': 'linear-gradient(135deg, #f2f0e6 0%, #eae7d9 100%)',
+        'linear-secondary-light': 'linear-gradient(135deg, #ffffff 0%, #f9f8f3 100%)',
         'linear-tertiary-light': 'linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%)',
       },
       backdropBlur: {
-        'linear': '12px',
+        'linear': '15px',
       },
       boxShadow: {
-        'linear-primary': '0 4px 16px rgba(0, 0, 0, 0.08)',
-        'linear-secondary': '0 2px 8px rgba(0, 0, 0, 0.04)',
-        'linear-inner': 'inset 0 1px 0 rgba(255, 255, 255, 0.8)',
+        'linear-primary': '0 4px 16px rgba(0, 0, 0, 0.06)',
+        'linear-secondary': '0 2px 8px rgba(0, 0, 0, 0.03)',
+        'linear-inner': 'inset 0 1px 0 rgba(255, 255, 255, 0.9)',
       },
+      colors: {
+        'linear-green': 'rgba(142, 213, 155, 0.85)',
+        'linear-blue': 'rgba(82, 109, 230, 0.85)',
+      }
     },
   },
 }
@@ -238,4 +248,4 @@ module.exports = {
    - 通过微妙的阴影和模糊效果替代强视觉分割
    - 保持交互一致性，让微动效成为连接视觉与体验的桥梁
    - 注重细节表现，提升界面的耐看性
-   - 确保在明亮背景下实现"无压力阅读"与"细节耐看性"的平衡 
+   - 确保在明亮背景下实现"无压力阅读"与"细节耐看性"的平衡

@@ -53,12 +53,13 @@ import CoreFeatures from '@/components/sections/CoreFeatures.vue'
 /* 英雄区域 */
 .linear-hero-section {
   position: relative;
-  background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+  background: var(--linear-bg-primary-light, linear-gradient(135deg, #f2f0e6 0%, #eae7d9 100%));
   overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-:root.dark .linear-hero-section {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+[data-theme="dark"] .linear-hero-section {
+  background: var(--linear-bg-primary-dark, linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%));
 }
 
 .linear-hero-section::before {
@@ -68,16 +69,19 @@ import CoreFeatures from '@/components/sections/CoreFeatures.vue'
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 30% 40%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
-              radial-gradient(circle at 70% 60%, rgba(79, 70, 229, 0.05) 0%, transparent 50%);
-  opacity: 0.8;
+  background: radial-gradient(circle at 30% 40%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 70% 60%, rgba(79, 70, 229, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  opacity: 0.9;
   z-index: 0;
+  transition: opacity 0.3s ease;
 }
 
-:root.dark .linear-hero-section::before {
-  background: radial-gradient(circle at 30% 40%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 70% 60%, rgba(79, 70, 229, 0.1) 0%, transparent 50%);
-  opacity: 0.6;
+[data-theme="dark"] .linear-hero-section::before {
+  background: radial-gradient(circle at 30% 40%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
+              radial-gradient(circle at 70% 60%, rgba(79, 70, 229, 0.12) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  opacity: 0.7;
 }
 
 .linear-hero-content {
@@ -87,15 +91,22 @@ import CoreFeatures from '@/components/sections/CoreFeatures.vue'
   margin: 0 auto;
   padding: 2rem;
   border-radius: 1rem;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 100%);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.85) 0%, rgba(79, 70, 229, 0.85) 100%);
+  color: white;
+  box-shadow: var(--linear-shadow-primary);
+  border: var(--linear-border-light-primary);
+  backdrop-filter: var(--linear-blur);
+  will-change: transform;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-:root.dark .linear-hero-content {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(135deg, rgba(40, 40, 40, 0.7) 0%, rgba(30, 30, 30, 0.5) 100%);
+.linear-hero-content:hover {
+  transform: translateY(-2px) rotate(0.5deg);
+  box-shadow: 0 12px 48px rgba(37, 99, 235, 0.4);
+}
+
+[data-theme="dark"] .linear-hero-content {
+  border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
@@ -106,17 +117,14 @@ import CoreFeatures from '@/components/sections/CoreFeatures.vue'
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(to right, 
-    rgba(255, 255, 255, 0), 
-    rgba(255, 255, 255, 0.8), 
-    rgba(255, 255, 255, 0));
-  z-index: 2;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3));
+  z-index: 1;
 }
 
-:root.dark .linear-hero-content::before {
-  background: linear-gradient(to right, 
-    rgba(255, 255, 255, 0), 
-    rgba(255, 255, 255, 0.2), 
-    rgba(255, 255, 255, 0));
+/* 文本颜色调整 */
+.linear-hero-content h1,
+.linear-hero-content p {
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-</style> 
+</style>
