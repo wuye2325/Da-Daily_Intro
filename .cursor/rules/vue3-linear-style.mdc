@@ -1,0 +1,241 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Vue3 线性风格设计指南
+
+## 设计理念
+基于 Linear App 的现代设计风格，打造具有高级感的用户界面，通过精致的视觉效果和流畅的交互体验提升产品质感。支持深色/浅色模式切换，确保在不同环境下都能提供优秀的视觉体验。浅色模式注重通过多级灰色和低饱和色彩构建层次，强化光影效果，保持精致的细节表现。
+
+## 视觉风格
+1. **背景设计**
+   - 深色模式
+     - 主背景：`linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)`
+     - 次要背景：`linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%)`
+   - 浅色模式
+     - 主背景：`linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%)`
+     - 次要背景：`linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)`
+     - 三级背景：`linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%)`
+   - 磨砂玻璃效果
+     - 深色模式：`background: rgba(255, 255, 255, 0.05)`
+     - 浅色模式：`background: rgba(255, 255, 255, 0.8)`
+     - 通用：`backdrop-filter: blur(12px)`
+     - 边缘：
+       - 深色模式：`border: 1px solid rgba(255, 255, 255, 0.1)`
+       - 浅色模式：`border: 1px solid rgba(0, 0, 0, 0.08)`
+
+2. **描边与光效**
+   - 纤细描边设计
+     - 边框宽度：`0.5px` 或 `1px`
+     - 深色模式：`rgba(255, 255, 255, 0.1)`
+     - 浅色模式：
+       - 一级描边：`rgba(0, 0, 0, 0.08)`
+       - 二级描边：`rgba(0, 0, 0, 0.05)`
+       - 强调描边：`rgba(0, 0, 0, 0.12)`
+   - 动态流光效果
+     - 深色模式：使用冷色调渐变
+     - 浅色模式：
+       - 主流光：`linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.05) 100%)`
+       - 次流光：`linear-gradient(135deg, rgba(0, 0, 0, 0.01) 0%, rgba(0, 0, 0, 0.03) 100%)`
+     - 通用实现：`@keyframes gradientFlow` + `background-size: 200% 200%`
+
+3. **卡片设计**
+   - 悬浮效果
+     - 通用：`transform: translateY(-2px)`
+     - 深色模式：`box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2)`
+     - 浅色模式：
+       - 主阴影：`box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08)`
+       - 次阴影：`box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04)`
+       - 内阴影：`box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8)`
+   - 边缘光效
+     - 深色模式：使用冷色调发光
+     - 浅色模式：
+       - 主光效：`rgba(255, 255, 255, 0.8)`
+       - 次光效：`rgba(255, 255, 255, 0.6)`
+     - 通用：`::after` 伪元素 + `box-shadow`
+
+## 动画效果
+1. **微动效果**
+   - 按钮点击反馈
+     - 通用：`scale(0.98)`
+     - 过渡时间：`0.1s`
+     - 浅色模式额外效果：
+       - 背景色渐变：`background: linear-gradient(to right, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.05))`
+       - 阴影变化：`box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04)`
+   - 卡片悬浮
+     - 通用：`transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)`
+     - 轻微旋转：`rotate(0.5deg)`
+     - 浅色模式额外效果：
+       - 背景色渐变：`background: linear-gradient(to right, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.03))`
+       - 阴影扩散：`box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06)`
+
+2. **加载动画**
+   - 骨架屏
+     - 深色模式：使用深色渐变
+     - 浅色模式：
+       - 主骨架：`linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)`
+       - 次骨架：`linear-gradient(90deg, #f5f5f5 25%, #eaeaea 50%, #f5f5f5 75%)`
+     - 通用：`@keyframes shimmer`
+   - 页面过渡
+     - 使用 Vue 的 `<Transition>` 组件
+     - 自定义过渡类名
+     - 浅色模式额外效果：
+       - 淡入淡出：`opacity: 0.8 -> 1`
+       - 轻微缩放：`scale: 0.98 -> 1`
+
+## 技术实现
+1. **CSS 变量**
+```css
+:root {
+  /* 深色模式 */
+  --linear-bg-primary-dark: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  --linear-bg-secondary-dark: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+  --linear-border-dark: 1px solid rgba(255, 255, 255, 0.1);
+  
+  /* 浅色模式 */
+  --linear-bg-primary-light: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+  --linear-bg-secondary-light: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+  --linear-bg-tertiary-light: linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%);
+  --linear-border-light-primary: 1px solid rgba(0, 0, 0, 0.08);
+  --linear-border-light-secondary: 1px solid rgba(0, 0, 0, 0.05);
+  --linear-border-light-accent: 1px solid rgba(0, 0, 0, 0.12);
+  
+  /* 通用 */
+  --linear-blur: blur(12px);
+  --linear-shadow-primary: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --linear-shadow-secondary: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --linear-shadow-inner: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* 深色模式 */
+[data-theme="dark"] {
+  --linear-bg-primary: var(--linear-bg-primary-dark);
+  --linear-bg-secondary: var(--linear-bg-secondary-dark);
+  --linear-border: var(--linear-border-dark);
+}
+
+/* 浅色模式 */
+[data-theme="light"] {
+  --linear-bg-primary: var(--linear-bg-primary-light);
+  --linear-bg-secondary: var(--linear-bg-secondary-light);
+  --linear-bg-tertiary: var(--linear-bg-tertiary-light);
+  --linear-border-primary: var(--linear-border-light-primary);
+  --linear-border-secondary: var(--linear-border-light-secondary);
+  --linear-border-accent: var(--linear-border-light-accent);
+}
+```
+
+2. **Tailwind 配置**
+```javascript
+module.exports = {
+  theme: {
+    extend: {
+      backgroundImage: {
+        'linear-primary-dark': 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
+        'linear-secondary-dark': 'linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%)',
+        'linear-primary-light': 'linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%)',
+        'linear-secondary-light': 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)',
+        'linear-tertiary-light': 'linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%)',
+      },
+      backdropBlur: {
+        'linear': '12px',
+      },
+      boxShadow: {
+        'linear-primary': '0 4px 16px rgba(0, 0, 0, 0.08)',
+        'linear-secondary': '0 2px 8px rgba(0, 0, 0, 0.04)',
+        'linear-inner': 'inset 0 1px 0 rgba(255, 255, 255, 0.8)',
+      },
+    },
+  },
+}
+```
+
+## 组件示例
+1. **卡片组件**
+```vue
+<template>
+  <div class="card-container">
+    <div class="card-content">
+      <slot></slot>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.card-container {
+  @apply relative overflow-hidden rounded-lg;
+  background: var(--linear-bg-secondary);
+  backdrop-filter: var(--linear-blur);
+  border: var(--linear-border-primary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--linear-shadow-primary);
+}
+
+.card-container:hover {
+  transform: translateY(-2px) rotate(0.5deg);
+  box-shadow: var(--linear-shadow-primary), var(--linear-shadow-secondary);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.03));
+}
+</style>
+```
+
+2. **按钮组件**
+```vue
+<template>
+  <button class="linear-button">
+    <slot></slot>
+  </button>
+</template>
+
+<style scoped>
+.linear-button {
+  @apply relative overflow-hidden rounded-md px-4 py-2;
+  background: var(--linear-bg-secondary);
+  border: var(--linear-border-primary);
+  transition: all 0.2s ease;
+  box-shadow: var(--linear-shadow-secondary);
+}
+
+.linear-button:hover {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.05));
+  transform: translateY(-1px);
+  box-shadow: var(--linear-shadow-primary);
+}
+
+.linear-button:active {
+  transform: scale(0.98);
+  box-shadow: var(--linear-shadow-secondary);
+}
+</style>
+```
+
+## 最佳实践
+1. **性能优化**
+   - 使用 `will-change` 属性优化动画性能
+   - 合理使用 `transform` 和 `opacity` 进行动画
+   - 避免过多嵌套的动画效果
+
+2. **响应式设计**
+   - 移动端适配时适当减少模糊效果
+   - 根据设备性能动态调整动画复杂度
+   - 提供降级方案确保基础体验
+
+3. **可访问性**
+   - 确保足够的颜色对比度（深色/浅色模式都要满足 WCAG 标准）
+   - 提供动画关闭选项
+   - 支持键盘导航
+   - 提供清晰的主题切换按钮
+
+4. **主题切换**
+   - 使用 CSS 变量实现平滑的主题切换
+   - 保存用户主题偏好
+   - 提供系统主题自动跟随选项
+   - 确保切换过程流畅无闪烁
+
+5. **浅色模式优化**
+   - 避免使用纯白色背景，使用多级灰色构建层次
+   - 通过微妙的阴影和模糊效果替代强视觉分割
+   - 保持交互一致性，让微动效成为连接视觉与体验的桥梁
+   - 注重细节表现，提升界面的耐看性
+   - 确保在明亮背景下实现"无压力阅读"与"细节耐看性"的平衡 

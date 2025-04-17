@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import pinia from './stores'
 import './styles/index.css'
+import './assets/css/linear-style.css'
 
 const app = createApp(App)
 
