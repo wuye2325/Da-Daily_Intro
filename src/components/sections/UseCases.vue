@@ -66,122 +66,116 @@
       </div>
 
       <!-- 交互流程区域 -->
-      <div class="interaction-area relative min-h-[500px]">
+      <div class="interaction-area relative min-h-[450px]">
         <!-- 显示当前步骤的标题和描述 -->
-        <div class="step-info mb-4 text-center">
-          <h3 class="text-xl font-bold">{{ currentStepData.title }}</h3>
-          <p class="text-base mt-1">{{ currentStepData.description }}</p>
+        <div class="step-info mb-4 text-center flex justify-center items-center flex-wrap">
+          <h3 class="text-xl font-bold my-0">{{ currentStepData.title }}</h3>
+          <p class="text-base ml-3 my-0">{{ currentStepData.description }}</p>
         </div>
 
         <!-- 手机界面展示区 -->
-        <div class="phone-displays-container grid grid-cols-4 gap-4">
-          <div 
-            v-for="role in roles" 
-            :key="`phone-${role.id}`" 
-            class="phone-container flex flex-col items-center transition-all duration-500"
-            :class="{'opacity-30': !isRoleActiveInCurrentStep(role.id)}"
-          >
-            <!-- iPhone边框 -->
-            <div class="iphone-frame relative">
-              <div class="iphone-outer w-[240px] h-[480px] rounded-[40px] bg-gray-800 p-2 shadow-xl">
-                <div class="iphone-inner w-full h-full rounded-[32px] overflow-hidden bg-black relative">
-                  <!-- 刘海 -->
-                  <div class="notch absolute top-0 left-1/2 transform -translate-x-1/2 w-[100px] h-[25px] bg-black z-10 rounded-b-xl"></div>
-                  
-                  <!-- 屏幕内容 -->
-                  <div class="screen w-full h-full bg-white">
-                    <img 
-                      v-if="getCurrentUIForRole(role.id)" 
-                      :src="getCurrentUIForRole(role.id)" 
-                      :alt="`${role.name}界面`"
-                      class="w-full h-full object-cover transition-opacity duration-300"
-                    >
-                    <div v-else class="w-full h-full flex items-center justify-center bg-gray-100">
-                      <p class="text-gray-400">等待操作...</p>
+        <div class="displays-container-wrapper relative mx-auto">
+          <div class="phone-displays-container grid grid-cols-4 gap-4 mb-8">
+            <div 
+              v-for="role in roles" 
+              :key="`phone-${role.id}`" 
+              class="phone-container flex flex-col items-center transition-all duration-500"
+              :class="{
+                'opacity-30': !isRoleActiveInCurrentStep(role.id),
+                'active-role': isRoleActiveInCurrentStep(role.id)
+              }"
+            >
+              <!-- iPhone边框 -->
+              <div class="iphone-frame relative">
+                <div class="iphone-outer w-[240px] h-[480px] rounded-[40px] bg-gray-800 p-2 shadow-xl">
+                  <div class="iphone-inner w-full h-full rounded-[32px] overflow-hidden bg-black relative">
+                    <!-- 刘海 -->
+                    <div class="notch absolute top-0 left-1/2 transform -translate-x-1/2 w-[100px] h-[25px] bg-black z-10 rounded-b-xl"></div>
+                    
+                    <!-- 屏幕内容 -->
+                    <div class="screen w-full h-full bg-white">
+                      <img 
+                        v-if="getCurrentUIForRole(role.id)" 
+                        :src="getCurrentUIForRole(role.id)" 
+                        :alt="`${role.name}界面`"
+                        class="w-full h-full object-cover transition-opacity duration-300"
+                      >
+                      <div v-else class="w-full h-full flex items-center justify-center bg-gray-100">
+                        <p class="text-gray-400">等待操作...</p>
+                      </div>
                     </div>
                   </div>
                 </div>
+                
+                <!-- 操作指示 -->
+                <div 
+                  v-if="isRoleActiveInCurrentStep(role.id)" 
+                  class="operation-hint absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-linear-blue text-white px-3 py-1 rounded-full text-xs whitespace-nowrap shadow-sm z-10 flex items-center justify-center"
+                >
+                  <svg class="w-3.5 h-3.5 mr-1 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                  <span class="inline-flex items-center">{{ getCurrentOperationForRole(role.id) }}</span>
+                </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 时间轴控制区 -->
+        <div class="timeline-container">
+          <div class="timeline-wrapper relative mx-auto" style="width: 1164px; max-width: 100%;">
+            <div class="timeline relative py-6">
+              <!-- 时间线 -->
+              <div class="timeline-line absolute h-1 bg-gray-200 left-0 right-0 top-1/2 transform -translate-y-1/2"></div>
               
-              <!-- 操作指示 -->
-              <div 
-                v-if="isRoleActiveInCurrentStep(role.id)" 
-                class="operation-hint absolute -top-5 left-1/2 transform -translate-x-1/2 bg-linear-green text-white px-2 py-0.5 rounded-full text-xs whitespace-nowrap"
-              >
-                {{ getCurrentOperationForRole(role.id) }}
+              <!-- 时间点 -->
+              <div class="timeline-nodes flex justify-between relative">
+                <div 
+                  v-for="(step, index) in journey" 
+                  :key="`node-${index}`"
+                  :class="['timeline-node relative cursor-pointer', {'active': currentStep >= index}]"
+                  @click="goToStep(index)"
+                >
+                  <div class="timeline-dot w-3 h-3 rounded-full bg-gray-300 transition-all duration-300 hover:scale-125"></div>
+                  <div class="timeline-label absolute -bottom-6 transform -translate-x-1/2 text-xs whitespace-nowrap">
+                    {{ step.time }}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- 交互箭头 - 根据当前步骤动态生成 -->
-        <div class="interaction-arrows absolute inset-0 pointer-events-none">
-          <svg class="w-full h-full" ref="arrowsSvg"></svg>
-        </div>
-      </div>
-
-      <!-- 时间轴控制区 -->
-      <div class="timeline-container mt-8">
-        <div class="timeline relative py-4">
-          <!-- 时间线 -->
-          <div class="timeline-line absolute h-1 bg-gray-200 left-0 right-0 top-1/2 transform -translate-y-1/2"></div>
           
-          <!-- 时间点 -->
-          <div class="timeline-nodes flex justify-between relative">
-            <div 
-              v-for="(step, index) in journey" 
-              :key="`node-${index}`"
-              :class="['timeline-node relative cursor-pointer', {'active': currentStep >= index}]"
-              @click="goToStep(index)"
+          <!-- 控制按钮 -->
+          <div class="controls flex justify-center mt-10 space-x-4">
+            <button 
+              @click="prevStep" 
+              :disabled="currentStep === 0" 
+              class="control-btn px-3 py-0.5 text-sm rounded-md transition-all duration-300 disabled:opacity-50"
+              :class="{'opacity-50': currentStep === 0}"
             >
-              <div class="timeline-dot w-3 h-3 rounded-full bg-gray-300 transition-all duration-300 hover:scale-125"></div>
-              <div class="timeline-label absolute -bottom-6 transform -translate-x-1/2 text-xs whitespace-nowrap">
-                {{ step.time }}
-              </div>
+              上一步
+            </button>
+            <div class="step-indicator px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded-md text-sm">
+              {{ currentStep + 1 }} / {{ journey.length }}
             </div>
+            <button 
+              @click="nextStep" 
+              :disabled="currentStep === journey.length - 1" 
+              class="control-btn px-3 py-0.5 text-sm rounded-md transition-all duration-300 disabled:opacity-50"
+              :class="{'opacity-50': currentStep === journey.length - 1}"
+            >
+              下一步
+            </button>
           </div>
         </div>
-        
-        <!-- 控制按钮 -->
-        <div class="controls flex justify-center mt-8 space-x-4">
-          <button 
-            @click="prevStep" 
-            :disabled="currentStep === 0" 
-            class="control-btn px-5 py-1.5 rounded-md transition-all duration-300 disabled:opacity-50"
-            :class="{'opacity-50': currentStep === 0}"
-          >
-            上一步
-          </button>
-          <div class="step-indicator px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-md text-sm">
-            {{ currentStep + 1 }} / {{ journey.length }}
-          </div>
-          <button 
-            @click="nextStep" 
-            :disabled="currentStep === journey.length - 1" 
-            class="control-btn px-5 py-1.5 rounded-md transition-all duration-300 disabled:opacity-50"
-            :class="{'opacity-50': currentStep === journey.length - 1}"
-          >
-            下一步
-          </button>
-        </div>
-      </div>
-
-      <!-- 提示导入图片 -->
-      <div class="image-import-notice mt-6 p-3 bg-yellow-50 dark:bg-yellow-900 rounded-lg max-w-3xl mx-auto text-center text-sm">
-        <p class="text-yellow-800 dark:text-yellow-200">
-          请将界面截图图片放置在 <code class="bg-white dark:bg-gray-800 px-1 py-0.5 rounded">src/assets/images/usecases/</code> 目录下，并按照 
-          <code class="bg-white dark:bg-gray-800 px-1 py-0.5 rounded">step1_resident.png</code> 格式命名
-        </p>
-        <p class="text-yellow-800 dark:text-yellow-200 mt-2">
-          流程数据位于 <code class="bg-white dark:bg-gray-800 px-1 py-0.5 rounded">src/data/journeyData.json</code>，可随时更新修改
-        </p>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 // 导入JSON数据
 import journeyData from '../../data/journeyData.json';
 
@@ -209,9 +203,6 @@ const toggleFullscreen = () => {
     // 移除ESC键监听
     window.removeEventListener('keydown', handleEscKey);
   }
-  
-  // 重新绘制交互箭头
-  setTimeout(drawInteractionArrows, 300);
 };
 
 // 处理ESC键退出全屏
@@ -231,20 +222,12 @@ interface Role {
   icon?: string; // 添加图标属性
 }
 
-// 交互类型定义
-interface Interaction {
-  from: string;
-  to: string;
-  message: string;
-}
-
 // 单个旅程步骤类型定义
 interface JourneyStep {
   time: string;
   title: string;
   description: string;
   activeRoles: string[];
-  interactions: Interaction[];
   uiScreenshots: Record<string, string>;
   operations: Record<string, string>;
 }
@@ -336,102 +319,12 @@ const goToStep = (stepIndex: number) => {
   }
 };
 
-// 绘制交互箭头
-const arrowsSvg = ref<SVGElement | null>(null);
-
-// 当步骤变化时重绘箭头
-watch(currentStep, () => {
-  setTimeout(drawInteractionArrows, 100);
-});
-
-// 绘制交互箭头函数
-const drawInteractionArrows = () => {
-  if (!arrowsSvg.value) return;
-  
-  try {
-    // 清空现有箭头
-    arrowsSvg.value.innerHTML = '';
-    
-    // 获取当前步骤的交互
-    const interactions = currentStepData.value.interactions || [];
-    
-    // 为每个交互绘制箭头
-    interactions.forEach(interaction => {
-      // 这里需要根据实际DOM结构获取元素位置
-      const fromEl = document.querySelector(`[data-role-id="${interaction.from}"]`);
-      const toEl = document.querySelector(`[data-role-id="${interaction.to}"]`);
-      
-      if (fromEl && toEl && arrowsSvg.value) {
-        // 获取元素位置
-        const fromRect = fromEl.getBoundingClientRect();
-        const toRect = toEl.getBoundingClientRect();
-        
-        // 计算箭头起点和终点
-        const fromX = fromRect.left + fromRect.width / 2;
-        const fromY = fromRect.top + fromRect.height / 2;
-        const toX = toRect.left + toRect.width / 2;
-        const toY = toRect.top + toRect.height / 2;
-        
-        // 创建箭头路径
-        const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        arrow.setAttribute('d', `M${fromX},${fromY} L${toX},${toY}`);
-        arrow.setAttribute('stroke', 'var(--linear-accent-blue)');
-        arrow.setAttribute('stroke-width', '2');
-        arrow.setAttribute('marker-end', 'url(#arrowhead)');
-        
-        // 创建箭头文本
-        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        text.setAttribute('x', `${(fromX + toX) / 2}`);
-        text.setAttribute('y', `${(fromY + toY) / 2 - 10}`);
-        text.setAttribute('text-anchor', 'middle');
-        text.setAttribute('fill', 'var(--linear-accent-blue)');
-        text.textContent = interaction.message;
-        
-        // 添加到SVG
-        arrowsSvg.value.appendChild(arrow);
-        arrowsSvg.value.appendChild(text);
-      }
-    });
-  } catch (error) {
-    console.error('绘制交互箭头失败:', error);
-  }
-};
-
 // 页面加载完成后初始化
 onMounted(() => {
-  // 为每个角色元素添加data-role-id属性，用于计算箭头位置
-  const roleColumns = document.querySelectorAll('.role-column');
-  roleColumns.forEach((el, index) => {
-    el.setAttribute('data-role-id', roles[index].id);
+  // 窗口大小改变时处理
+  window.addEventListener('resize', () => {
+    // 可以在此处添加其他需要的窗口大小改变处理逻辑
   });
-  
-  // 初始化绘制箭头
-  setTimeout(drawInteractionArrows, 500);
-  
-  // 创建箭头标记
-  if (arrowsSvg.value) {
-    // 确保SVG元素存在
-    try {
-      const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-      const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
-      marker.setAttribute('id', 'arrowhead');
-      marker.setAttribute('markerWidth', '10');
-      marker.setAttribute('markerHeight', '7');
-      marker.setAttribute('refX', '9');
-      marker.setAttribute('refY', '3.5');
-      marker.setAttribute('orient', 'auto');
-      
-      const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-      polygon.setAttribute('points', '0 0, 10 3.5, 0 7');
-      polygon.setAttribute('fill', 'var(--linear-accent-blue)');
-      
-      marker.appendChild(polygon);
-      defs.appendChild(marker);
-      arrowsSvg.value.appendChild(defs);
-    } catch (error) {
-      console.error('创建箭头标记失败:', error);
-    }
-  }
 });
 
 // 组件卸载时清理事件监听
@@ -440,6 +333,9 @@ onUnmounted(() => {
     window.removeEventListener('keydown', handleEscKey);
     document.body.style.overflow = '';
   }
+  
+  // 移除resize事件监听
+  window.removeEventListener('resize', () => {});
 });
 </script>
 
@@ -519,23 +415,45 @@ onUnmounted(() => {
 .iphone-frame {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
+  position: relative;
+  padding-bottom: 1.5rem;
 }
 
-/* 移除手机边框的悬停动效 */
-.phone-container:hover .iphone-frame {
-  /* 删除下面的动效代码 */
-  /* transform: translateY(-10px) rotateY(5deg); */
+/* 全屏模式下额外的样式调整 */
+.fullscreen-mode .phone-displays-container {
+  margin-bottom: 2rem;
 }
 
-.timeline-node .timeline-dot {
+.fullscreen-mode .timeline-container {
+  margin-top: 0;
+}
+
+/* 使用更兼容的选择器 */
+.phone-container.active-role .iphone-outer {
+  box-shadow: 0 10px 25px -5px rgba(0, 120, 229, 0.3), 0 8px 10px -6px rgba(0, 120, 229, 0.2);
+}
+
+.timeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.timeline-dot {
+  margin: 0 auto;
   transition: all 0.3s ease;
-  box-shadow: 0 0 0 rgba(142, 213, 155, 0);
+  box-shadow: 0 0 0 rgba(0, 120, 229, 0);
 }
 
 .timeline-node.active .timeline-dot {
-  background-color: var(--linear-accent-green, rgba(142, 213, 155, 0.85));
-  box-shadow: 0 0 10px rgba(142, 213, 155, 0.5);
+  background-color: var(--linear-accent-blue, rgba(0, 120, 229, 0.85));
+  box-shadow: 0 0 10px rgba(0, 120, 229, 0.5);
   transform: scale(1.2);
+}
+
+.timeline-label {
+  left: 50%;
 }
 
 .control-btn {
@@ -560,7 +478,18 @@ onUnmounted(() => {
 }
 
 .bg-linear-green {
-  background-color: var(--linear-accent-green, rgba(142, 213, 155, 0.85));
+  background-color: var(--linear-accent-blue, rgba(0, 120, 229, 0.85));
+}
+
+.bg-linear-blue {
+  background-color: var(--linear-accent-blue, rgba(0, 120, 229, 0.85));
+}
+
+/* 手机容器和时间线容器 */
+.displays-container-wrapper,
+.timeline-wrapper {
+  width: 100%;
+  margin: 0 auto;
 }
 
 /* 添加适当的响应式样式 */
@@ -596,5 +525,22 @@ onUnmounted(() => {
   .fullscreen-mode .phone-displays-container {
     grid-template-columns: 1fr;
   }
+}
+
+.operation-hint {
+  animation: fadeIn 0.5s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, 5px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.step-info h3,
+.step-info p {
+  line-height: 1.5;
+  display: inline-flex;
+  align-items: center;
 }
 </style> 

@@ -1,12 +1,9 @@
 [
   {
-    "time": "第1天",
+    "time": "1",
     "title": "发起问题讨论",
     "description": "业主发现地面停车位不足，发起问题讨论",
     "activeRoles": ["resident"],
-    "interactions": [
-      { "from": "resident", "to": "committee", "message": "提交问题" }
-    ],
     "uiScreenshots": {
       "resident": "../assets/images/usecases/step1_resident.png"
     },
@@ -15,13 +12,10 @@
     }
   },
   {
-    "time": "第2天",
+    "time": "2",
     "title": "业委会接收问题",
     "description": "业委会收到问题并开始初步评估",
     "activeRoles": ["committee"],
-    "interactions": [
-      { "from": "committee", "to": "resident", "message": "问题确认" }
-    ],
     "uiScreenshots": {
       "committee": "/src/assets/images/usecases/step2_committee.png"
     },
@@ -30,13 +24,10 @@
     }
   },
   {
-    "time": "第3天",
+    "time": "3",
     "title": "召集调研会议",
     "description": "业委会组织业主代表进行初步讨论",
     "activeRoles": ["committee", "resident"],
-    "interactions": [
-      { "from": "committee", "to": "resident", "message": "发送会议通知" }
-    ],
     "uiScreenshots": {
       "committee": "/src/assets/images/usecases/step3_committee.png",
       "resident": "/src/assets/images/usecases/step3_resident.png"
@@ -47,14 +38,10 @@
     }
   },
   {
-    "time": "第5天",
+    "time": "4",
     "title": "物业评估",
     "description": "物业公司进行技术可行性评估",
     "activeRoles": ["property", "committee"],
-    "interactions": [
-      { "from": "committee", "to": "property", "message": "评估请求" },
-      { "from": "property", "to": "committee", "message": "评估反馈" }
-    ],
     "uiScreenshots": {
       "property": "/src/assets/images/usecases/step4_property.png",
       "committee": "/src/assets/images/usecases/step4_committee.png"
@@ -65,13 +52,10 @@
     }
   },
   {
-    "time": "第7天",
+    "time": "5",
     "title": "方案制定",
     "description": "业委会与物业共同制定改造方案",
     "activeRoles": ["committee", "property"],
-    "interactions": [
-      { "from": "committee", "to": "property", "message": "方案讨论" }
-    ],
     "uiScreenshots": {
       "committee": "/src/assets/images/usecases/step5_committee.png",
       "property": "/src/assets/images/usecases/step5_property.png"
@@ -82,13 +66,10 @@
     }
   },
   {
-    "time": "第10天",
+    "time": "6",
     "title": "社区审核",
     "description": "方案提交社区进行合规性审核",
     "activeRoles": ["committee", "community"],
-    "interactions": [
-      { "from": "committee", "to": "community", "message": "提交审核" }
-    ],
     "uiScreenshots": {
       "committee": "/src/assets/images/usecases/step6_committee.png",
       "community": "/src/assets/images/usecases/step6_community.png"
@@ -99,14 +80,10 @@
     }
   },
   {
-    "time": "第12天",
+    "time": "7",
     "title": "业主投票",
     "description": "业主对改造方案进行投票表决",
     "activeRoles": ["resident", "committee"],
-    "interactions": [
-      { "from": "committee", "to": "resident", "message": "投票通知" },
-      { "from": "resident", "to": "committee", "message": "投票反馈" }
-    ],
     "uiScreenshots": {
       "resident": "/src/assets/images/usecases/step7_resident.png",
       "committee": "/src/assets/images/usecases/step7_committee.png"
@@ -117,14 +94,10 @@
     }
   },
   {
-    "time": "第15天",
+    "time": "8",
     "title": "投票结果",
     "description": "公布投票结果及下一步计划",
     "activeRoles": ["committee", "resident", "property"],
-    "interactions": [
-      { "from": "committee", "to": "resident", "message": "结果公示" },
-      { "from": "committee", "to": "property", "message": "实施准备" }
-    ],
     "uiScreenshots": {
       "committee": "/src/assets/images/usecases/step8_committee.png",
       "resident": "/src/assets/images/usecases/step8_resident.png",
@@ -137,13 +110,10 @@
     }
   },
   {
-    "time": "第18天",
+    "time": "9",
     "title": "工程招标",
     "description": "物业公司进行工程招标",
     "activeRoles": ["property", "committee"],
-    "interactions": [
-      { "from": "property", "to": "committee", "message": "招标信息" }
-    ],
     "uiScreenshots": {
       "property": "/src/assets/images/usecases/step9_property.png",
       "committee": "/src/assets/images/usecases/step9_committee.png"
@@ -154,14 +124,10 @@
     }
   },
   {
-    "time": "第25天",
+    "time": "10",
     "title": "施工准备",
     "description": "确定施工单位并准备施工",
     "activeRoles": ["property", "committee", "resident"],
-    "interactions": [
-      { "from": "property", "to": "resident", "message": "施工通知" },
-      { "from": "property", "to": "committee", "message": "施工计划" }
-    ],
     "uiScreenshots": {
       "property": "/src/assets/images/usecases/step10_property.png",
       "committee": "/src/assets/images/usecases/step10_committee.png",
@@ -174,14 +140,10 @@
     }
   },
   {
-    "time": "第30天",
+    "time": "11",
     "title": "施工监督",
     "description": "业委会与业主代表监督施工过程",
     "activeRoles": ["committee", "resident", "property"],
-    "interactions": [
-      { "from": "committee", "to": "property", "message": "监督反馈" },
-      { "from": "resident", "to": "committee", "message": "业主建议" }
-    ],
     "uiScreenshots": {
       "committee": "/src/assets/images/usecases/step11_committee.png",
       "resident": "/src/assets/images/usecases/step11_resident.png",
@@ -194,15 +156,10 @@
     }
   },
   {
-    "time": "第40天",
+    "time": "12",
     "title": "工程验收",
     "description": "各方共同参与工程验收",
     "activeRoles": ["committee", "property", "community", "resident"],
-    "interactions": [
-      { "from": "property", "to": "committee", "message": "验收报告" },
-      { "from": "committee", "to": "community", "message": "备案资料" },
-      { "from": "committee", "to": "resident", "message": "验收结果" }
-    ],
     "uiScreenshots": {
       "committee": "/src/assets/images/usecases/step12_committee.png",
       "property": "/src/assets/images/usecases/step12_property.png",
@@ -217,14 +174,10 @@
     }
   },
   {
-    "time": "第45天",
+    "time": "13",
     "title": "使用反馈",
     "description": "改造完成后收集业主使用反馈",
     "activeRoles": ["resident", "committee", "property"],
-    "interactions": [
-      { "from": "resident", "to": "committee", "message": "使用评价" },
-      { "from": "committee", "to": "property", "message": "反馈汇总" }
-    ],
     "uiScreenshots": {
       "resident": "/src/assets/images/usecases/step13_resident.png",
       "committee": "/src/assets/images/usecases/step13_committee.png",
