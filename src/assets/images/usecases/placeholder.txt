@@ -1,0 +1,33 @@
+# 用户旅程界面图片说明
+
+本目录用于存放应用场景展示组件(UseCases.vue)中需要的手机界面截图。
+
+## 命名规则
+
+图片应按照以下格式命名：
+- step1_resident.png - 第1步业主界面
+- step2_committee.png - 第2步业委会界面
+- 以此类推...
+
+## 图片尺寸
+
+为保证最佳显示效果，建议图片尺寸：
+- 宽度：750px
+- 高度：1334px（16:9比例）
+- 格式：PNG（支持透明背景）
+
+## 示例路径
+
+```
+/src/assets/images/usecases/step1_resident.png
+/src/assets/images/usecases/step2_committee.png
+/src/assets/images/usecases/step3_resident.png
+...
+```
+
+## 图片内容建议
+
+1. 界面应展示微信小程序的实际操作界面
+2. 可以在关键操作处添加指示箭头或高亮
+3. 界面应当清晰反映当前步骤的操作内容
+4. 保持一致的设计风格 

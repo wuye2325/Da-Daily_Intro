@@ -1,58 +1,76 @@
 <template>
-  <section class="use-cases-section py-16 w-full">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-6">小区治理应用场景</h2>
-      <p class="text-lg text-center mb-12 max-w-3xl mx-auto">
+  <section class="use-cases-section py-8 w-full" :class="{'fullscreen-mode': isFullscreen}">
+    <div class="container mx-auto px-4 relative">
+      <!-- 放大/返回按钮 -->
+      <button 
+        @click="toggleFullscreen" 
+        class="fullscreen-toggle absolute right-4 top-2 z-10 p-1.5 rounded-full bg-white bg-opacity-80 dark:bg-gray-800 dark:bg-opacity-80 shadow-md hover:shadow-lg transition-all"
+        aria-label="放大或返回"
+      >
+        <svg 
+          v-if="!isFullscreen" 
+          class="w-5 h-5 text-gray-700 dark:text-gray-300" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
+        </svg>
+        <svg 
+          v-else 
+          class="w-5 h-5 text-gray-700 dark:text-gray-300" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <h2 class="text-3xl font-bold text-center mb-4">小区治理应用场景</h2>
+      <p class="text-lg text-center mb-6 max-w-3xl mx-auto">
         以下是地面停车位改造项目流程中四种角色的操作展示
       </p>
 
       <!-- 角色展示区域 -->
-      <div class="roles-container grid grid-cols-4 gap-6 mb-12">
+      <div class="roles-container grid grid-cols-4 gap-6 mb-6">
         <div 
           v-for="role in roles" 
           :key="role.id" 
           class="role-column flex flex-col items-center"
         >
-          <div 
-            class="role-avatar w-20 h-20 rounded-full mb-4 flex items-center justify-center"
-            :class="`bg-${role.color}-100`"
-          >
-            <img 
-              v-if="role.avatar" 
-              :src="role.avatar" 
-              :alt="role.name" 
-              class="w-16 h-16 rounded-full object-cover"
-            >
-            <svg 
-              v-else-if="role.icon" 
-              class="w-10 h-10" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor" 
-              :class="`text-${role.color}-500`"
-            >
-              <path 
-                stroke-linecap="round" 
-                stroke-linejoin="round" 
-                stroke-width="2" 
-                :d="role.icon"
-              />
-            </svg>
-            <span v-else class="text-4xl">{{ role.name.charAt(0) }}</span>
+          <div class="flex items-center mb-2">
+            <div class="flex items-center">
+              <svg 
+                v-if="role.icon" 
+                class="w-6 h-6 mr-1 flex-shrink-0" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor" 
+                :class="role.id === 'committee' ? 'text-current' : `text-${role.color}-500`"
+              >
+                <path 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round" 
+                  stroke-width="2" 
+                  :d="role.icon"
+                />
+              </svg>
+              <h3 class="role-name text-lg font-semibold my-0 py-0">{{ role.name }}</h3>
+            </div>
           </div>
-          <h3 class="role-name text-xl font-semibold mb-2">{{ role.name }}</h3>
-          <p class="role-desc text-sm text-center text-gray-600 dark:text-gray-300">
+          <p class="role-desc text-xs text-center text-gray-600 dark:text-gray-300">
             {{ role.description }}
           </p>
         </div>
       </div>
 
       <!-- 交互流程区域 -->
-      <div class="interaction-area relative min-h-[600px]">
+      <div class="interaction-area relative min-h-[500px]">
         <!-- 显示当前步骤的标题和描述 -->
-        <div class="step-info mb-8 text-center">
-          <h3 class="text-2xl font-bold">{{ currentStepData.title }}</h3>
-          <p class="text-lg mt-2">{{ currentStepData.description }}</p>
+        <div class="step-info mb-4 text-center">
+          <h3 class="text-xl font-bold">{{ currentStepData.title }}</h3>
+          <p class="text-base mt-1">{{ currentStepData.description }}</p>
         </div>
 
         <!-- 手机界面展示区 -->
@@ -65,10 +83,10 @@
           >
             <!-- iPhone边框 -->
             <div class="iphone-frame relative">
-              <div class="iphone-outer w-[280px] h-[560px] rounded-[45px] bg-gray-800 p-3 shadow-xl">
-                <div class="iphone-inner w-full h-full rounded-[36px] overflow-hidden bg-black relative">
+              <div class="iphone-outer w-[240px] h-[480px] rounded-[40px] bg-gray-800 p-2 shadow-xl">
+                <div class="iphone-inner w-full h-full rounded-[32px] overflow-hidden bg-black relative">
                   <!-- 刘海 -->
-                  <div class="notch absolute top-0 left-1/2 transform -translate-x-1/2 w-[120px] h-[30px] bg-black z-10 rounded-b-xl"></div>
+                  <div class="notch absolute top-0 left-1/2 transform -translate-x-1/2 w-[100px] h-[25px] bg-black z-10 rounded-b-xl"></div>
                   
                   <!-- 屏幕内容 -->
                   <div class="screen w-full h-full bg-white">
@@ -88,7 +106,7 @@
               <!-- 操作指示 -->
               <div 
                 v-if="isRoleActiveInCurrentStep(role.id)" 
-                class="operation-hint absolute -top-6 left-1/2 transform -translate-x-1/2 bg-linear-green text-white px-3 py-1 rounded-full text-sm whitespace-nowrap"
+                class="operation-hint absolute -top-5 left-1/2 transform -translate-x-1/2 bg-linear-green text-white px-2 py-0.5 rounded-full text-xs whitespace-nowrap"
               >
                 {{ getCurrentOperationForRole(role.id) }}
               </div>
@@ -103,8 +121,8 @@
       </div>
 
       <!-- 时间轴控制区 -->
-      <div class="timeline-container mt-16">
-        <div class="timeline relative py-8">
+      <div class="timeline-container mt-8">
+        <div class="timeline relative py-4">
           <!-- 时间线 -->
           <div class="timeline-line absolute h-1 bg-gray-200 left-0 right-0 top-1/2 transform -translate-y-1/2"></div>
           
@@ -116,8 +134,8 @@
               :class="['timeline-node relative cursor-pointer', {'active': currentStep >= index}]"
               @click="goToStep(index)"
             >
-              <div class="timeline-dot w-4 h-4 rounded-full bg-gray-300 transition-all duration-300 hover:scale-125"></div>
-              <div class="timeline-label absolute -bottom-8 transform -translate-x-1/2 text-xs whitespace-nowrap">
+              <div class="timeline-dot w-3 h-3 rounded-full bg-gray-300 transition-all duration-300 hover:scale-125"></div>
+              <div class="timeline-label absolute -bottom-6 transform -translate-x-1/2 text-xs whitespace-nowrap">
                 {{ step.time }}
               </div>
             </div>
@@ -125,37 +143,83 @@
         </div>
         
         <!-- 控制按钮 -->
-        <div class="controls flex justify-center mt-12 space-x-4">
+        <div class="controls flex justify-center mt-8 space-x-4">
           <button 
             @click="prevStep" 
             :disabled="currentStep === 0" 
-            class="control-btn px-6 py-2 rounded-md transition-all duration-300 disabled:opacity-50"
+            class="control-btn px-5 py-1.5 rounded-md transition-all duration-300 disabled:opacity-50"
             :class="{'opacity-50': currentStep === 0}"
           >
             上一步
           </button>
-          <div class="step-indicator px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-md">
+          <div class="step-indicator px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-md text-sm">
             {{ currentStep + 1 }} / {{ journey.length }}
           </div>
           <button 
             @click="nextStep" 
             :disabled="currentStep === journey.length - 1" 
-            class="control-btn px-6 py-2 rounded-md transition-all duration-300 disabled:opacity-50"
+            class="control-btn px-5 py-1.5 rounded-md transition-all duration-300 disabled:opacity-50"
             :class="{'opacity-50': currentStep === journey.length - 1}"
           >
             下一步
           </button>
         </div>
       </div>
+
+      <!-- 提示导入图片 -->
+      <div class="image-import-notice mt-6 p-3 bg-yellow-50 dark:bg-yellow-900 rounded-lg max-w-3xl mx-auto text-center text-sm">
+        <p class="text-yellow-800 dark:text-yellow-200">
+          请将界面截图图片放置在 <code class="bg-white dark:bg-gray-800 px-1 py-0.5 rounded">src/assets/images/usecases/</code> 目录下，并按照 
+          <code class="bg-white dark:bg-gray-800 px-1 py-0.5 rounded">step1_resident.png</code> 格式命名
+        </p>
+        <p class="text-yellow-800 dark:text-yellow-200 mt-2">
+          流程数据位于 <code class="bg-white dark:bg-gray-800 px-1 py-0.5 rounded">src/data/journeyData.json</code>，可随时更新修改
+        </p>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 // 导入JSON数据
-// 实际使用时取消下面的注释，当前先使用内联数据
-// import journeyData from '../../assets/images/usecases/journey-data.json';
+import journeyData from '../../data/journeyData.json';
+
+// 添加全屏状态变量
+const isFullscreen = ref(false);
+
+// 切换全屏状态
+const toggleFullscreen = () => {
+  isFullscreen.value = !isFullscreen.value;
+  
+  // 如果切换到全屏模式，滚动到组件位置
+  if (isFullscreen.value) {
+    // 保存当前滚动位置，以便返回时恢复
+    document.body.dataset.prevScrollY = window.scrollY.toString();
+    // 禁止页面滚动
+    document.body.style.overflow = 'hidden';
+    // 添加ESC键监听
+    window.addEventListener('keydown', handleEscKey);
+  } else {
+    // 恢复页面滚动
+    document.body.style.overflow = '';
+    // 可选：恢复之前的滚动位置
+    const prevScrollY = parseInt(document.body.dataset.prevScrollY || '0');
+    window.scrollTo({ top: prevScrollY, behavior: 'smooth' });
+    // 移除ESC键监听
+    window.removeEventListener('keydown', handleEscKey);
+  }
+  
+  // 重新绘制交互箭头
+  setTimeout(drawInteractionArrows, 300);
+};
+
+// 处理ESC键退出全屏
+const handleEscKey = (event: KeyboardEvent) => {
+  if (event.key === 'Escape' && isFullscreen.value) {
+    toggleFullscreen();
+  }
+};
 
 // 角色定义
 interface Role {
@@ -164,7 +228,7 @@ interface Role {
   avatar: string;
   description: string;
   color: string;
-  icon?: string; // 添加图标路径属性
+  icon?: string; // 添加图标属性
 }
 
 // 交互类型定义
@@ -193,7 +257,7 @@ const roles: Role[] = [
     avatar: '', // 后续可添加头像路径
     description: '小区内的业主，有投票权和决策参与权',
     color: 'blue',
-    icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' // 用户图标
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z' // 团队图标
   },
   {
     id: 'committee',
@@ -201,7 +265,7 @@ const roles: Role[] = [
     avatar: '',
     description: '由业主选举产生，代表业主行使权力',
     color: 'green',
-    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z' // 团队图标
+    icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' // 用户图标
   },
   {
     id: 'property',
@@ -221,247 +285,8 @@ const roles: Role[] = [
   }
 ];
 
-// 用户旅程步骤定义
-const journey = ref<JourneyStep[]>([
-  {
-    time: '第1天',
-    title: '发起问题讨论',
-    description: '业主发现地面停车位不足，发起问题讨论',
-    activeRoles: ['resident'],
-    interactions: [
-      { from: 'resident', to: 'committee', message: '提交问题' }
-    ],
-    uiScreenshots: {
-      resident: 'https://via.placeholder.com/750x1334/f5f5f5/333333?text=业主界面:发起问题'
-    },
-    operations: {
-      resident: '发布问题'
-    }
-  },
-  {
-    time: '第2天',
-    title: '业委会接收问题',
-    description: '业委会收到问题并开始初步评估',
-    activeRoles: ['committee'],
-    interactions: [
-      { from: 'committee', to: 'resident', message: '问题确认' }
-    ],
-    uiScreenshots: {
-      committee: 'https://via.placeholder.com/750x1334/f5f5f5/333333?text=业委会界面:接收问题'
-    },
-    operations: {
-      committee: '确认接收'
-    }
-  },
-  // 以下是示例，后续可根据实际情况填充
-  {
-    time: '第3天',
-    title: '召集调研会议',
-    description: '业委会组织业主代表进行初步讨论',
-    activeRoles: ['committee', 'resident'],
-    interactions: [
-      { from: 'committee', to: 'resident', message: '发送会议通知' }
-    ],
-    uiScreenshots: {
-      committee: 'https://via.placeholder.com/750x1334/f5f5f5/333333?text=业委会界面:发布通知',
-      resident: 'https://via.placeholder.com/750x1334/f5f5f5/333333?text=业主界面:接收通知'
-    },
-    operations: {
-      committee: '发布通知',
-      resident: '接收通知'
-    }
-  },
-  {
-    time: '第5天',
-    title: '物业评估',
-    description: '物业公司进行技术可行性评估',
-    activeRoles: ['property', 'committee'],
-    interactions: [
-      { from: 'committee', to: 'property', message: '评估请求' },
-      { from: 'property', to: 'committee', message: '评估反馈' }
-    ],
-    uiScreenshots: {
-      property: 'https://via.placeholder.com/750x1334/f5f5f5/333333?text=物业界面:技术评估',
-      committee: 'https://via.placeholder.com/750x1334/f5f5f5/333333?text=业委会界面:查看结果'
-    },
-    operations: {
-      property: '技术评估',
-      committee: '查看结果'
-    }
-  },
-  {
-    time: '第7天',
-    title: '方案制定',
-    description: '业委会与物业共同制定改造方案',
-    activeRoles: ['committee', 'property'],
-    interactions: [
-      { from: 'committee', to: 'property', message: '方案讨论' }
-    ],
-    uiScreenshots: {
-      committee: '/src/assets/images/usecases/step5_committee.png',
-      property: '/src/assets/images/usecases/step5_property.png'
-    },
-    operations: {
-      committee: '制定方案',
-      property: '提供建议'
-    }
-  },
-  {
-    time: '第10天',
-    title: '社区审核',
-    description: '方案提交社区进行合规性审核',
-    activeRoles: ['committee', 'community'],
-    interactions: [
-      { from: 'committee', to: 'community', message: '提交审核' }
-    ],
-    uiScreenshots: {
-      committee: '/src/assets/images/usecases/step6_committee.png',
-      community: '/src/assets/images/usecases/step6_community.png'
-    },
-    operations: {
-      committee: '提交方案',
-      community: '审核方案'
-    }
-  },
-  {
-    time: '第12天',
-    title: '业主投票',
-    description: '业主对改造方案进行投票表决',
-    activeRoles: ['resident', 'committee'],
-    interactions: [
-      { from: 'committee', to: 'resident', message: '投票通知' },
-      { from: 'resident', to: 'committee', message: '投票反馈' }
-    ],
-    uiScreenshots: {
-      resident: '/src/assets/images/usecases/step7_resident.png',
-      committee: '/src/assets/images/usecases/step7_committee.png'
-    },
-    operations: {
-      resident: '参与投票',
-      committee: '发起投票'
-    }
-  },
-  {
-    time: '第15天',
-    title: '投票结果',
-    description: '公布投票结果及下一步计划',
-    activeRoles: ['committee', 'resident', 'property'],
-    interactions: [
-      { from: 'committee', to: 'resident', message: '结果公示' },
-      { from: 'committee', to: 'property', message: '实施准备' }
-    ],
-    uiScreenshots: {
-      committee: '/src/assets/images/usecases/step8_committee.png',
-      resident: '/src/assets/images/usecases/step8_resident.png',
-      property: '/src/assets/images/usecases/step8_property.png'
-    },
-    operations: {
-      committee: '公布结果',
-      resident: '查看结果',
-      property: '接收通知'
-    }
-  },
-  {
-    time: '第18天',
-    title: '工程招标',
-    description: '物业公司进行工程招标',
-    activeRoles: ['property', 'committee'],
-    interactions: [
-      { from: 'property', to: 'committee', message: '招标信息' }
-    ],
-    uiScreenshots: {
-      property: '/src/assets/images/usecases/step9_property.png',
-      committee: '/src/assets/images/usecases/step9_committee.png'
-    },
-    operations: {
-      property: '发布招标',
-      committee: '监督过程'
-    }
-  },
-  {
-    time: '第25天',
-    title: '施工准备',
-    description: '确定施工单位并准备施工',
-    activeRoles: ['property', 'committee', 'resident'],
-    interactions: [
-      { from: 'property', to: 'resident', message: '施工通知' },
-      { from: 'property', to: 'committee', message: '施工计划' }
-    ],
-    uiScreenshots: {
-      property: '/src/assets/images/usecases/step10_property.png',
-      committee: '/src/assets/images/usecases/step10_committee.png',
-      resident: '/src/assets/images/usecases/step10_resident.png'
-    },
-    operations: {
-      property: '发送通知',
-      committee: '确认计划',
-      resident: '查看通知'
-    }
-  },
-  {
-    time: '第30天',
-    title: '施工监督',
-    description: '业委会与业主代表监督施工过程',
-    activeRoles: ['committee', 'resident', 'property'],
-    interactions: [
-      { from: 'committee', to: 'property', message: '监督反馈' },
-      { from: 'resident', to: 'committee', message: '业主建议' }
-    ],
-    uiScreenshots: {
-      committee: '/src/assets/images/usecases/step11_committee.png',
-      resident: '/src/assets/images/usecases/step11_resident.png',
-      property: '/src/assets/images/usecases/step11_property.png'
-    },
-    operations: {
-      committee: '监督工程',
-      resident: '提供反馈',
-      property: '施工管理'
-    }
-  },
-  {
-    time: '第40天',
-    title: '工程验收',
-    description: '各方共同参与工程验收',
-    activeRoles: ['committee', 'property', 'community', 'resident'],
-    interactions: [
-      { from: 'property', to: 'committee', message: '验收报告' },
-      { from: 'committee', to: 'community', message: '备案资料' },
-      { from: 'committee', to: 'resident', message: '验收结果' }
-    ],
-    uiScreenshots: {
-      committee: '/src/assets/images/usecases/step12_committee.png',
-      property: '/src/assets/images/usecases/step12_property.png',
-      community: '/src/assets/images/usecases/step12_community.png',
-      resident: '/src/assets/images/usecases/step12_resident.png'
-    },
-    operations: {
-      committee: '组织验收',
-      property: '提交报告',
-      community: '审批验收',
-      resident: '参与评价'
-    }
-  },
-  {
-    time: '第45天',
-    title: '使用反馈',
-    description: '改造完成后收集业主使用反馈',
-    activeRoles: ['resident', 'committee', 'property'],
-    interactions: [
-      { from: 'resident', to: 'committee', message: '使用评价' },
-      { from: 'committee', to: 'property', message: '反馈汇总' }
-    ],
-    uiScreenshots: {
-      resident: '/src/assets/images/usecases/step13_resident.png',
-      committee: '/src/assets/images/usecases/step13_committee.png',
-      property: '/src/assets/images/usecases/step13_property.png'
-    },
-    operations: {
-      resident: '提交反馈',
-      committee: '收集反馈',
-      property: '改进服务'
-    }
-  }
-]);
+// 用户旅程步骤定义 - 使用导入的 JSON 数据
+const journey = ref<JourneyStep[]>(journeyData as JourneyStep[]);
 
 // 当前步骤
 const currentStep = ref(0);
@@ -536,7 +361,7 @@ const drawInteractionArrows = () => {
       const fromEl = document.querySelector(`[data-role-id="${interaction.from}"]`);
       const toEl = document.querySelector(`[data-role-id="${interaction.to}"]`);
       
-      if (fromEl && toEl) {
+      if (fromEl && toEl && arrowsSvg.value) {
         // 获取元素位置
         const fromRect = fromEl.getBoundingClientRect();
         const toRect = toEl.getBoundingClientRect();
@@ -608,16 +433,83 @@ onMounted(() => {
     }
   }
 });
+
+// 组件卸载时清理事件监听
+onUnmounted(() => {
+  if (isFullscreen.value) {
+    window.removeEventListener('keydown', handleEscKey);
+    document.body.style.overflow = '';
+  }
+});
 </script>
 
 <style scoped>
 .use-cases-section {
   @apply relative overflow-hidden;
   background: var(--linear-bg-primary-light, linear-gradient(135deg, #f2f0e6 0%, #eae7d9 100%));
+  transition: all 0.3s ease-in-out;
+}
+
+/* 全屏模式样式 */
+.fullscreen-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  padding: 1rem;
+  margin: 0;
+  border-radius: 0;
+  overflow-y: auto;
+}
+
+.fullscreen-mode .container {
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.fullscreen-mode .fullscreen-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+}
+
+/* 全屏模式下的动画 */
+.fullscreen-mode .interaction-area {
+  flex-grow: 1;
+}
+
+.fullscreen-toggle {
+  transition: all 0.2s ease;
+}
+
+.fullscreen-toggle:hover {
+  transform: scale(1.1);
 }
 
 .role-column {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 添加SVG图标和文本对齐样式 */
+.role-title-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.role-title-wrapper svg {
+  display: inline-flex;
+  vertical-align: -0.125em;
+}
+
+.role-name {
+  display: inline-flex;
+  align-items: center;
 }
 
 .phone-container {
@@ -629,8 +521,10 @@ onMounted(() => {
   transform-style: preserve-3d;
 }
 
+/* 移除手机边框的悬停动效 */
 .phone-container:hover .iphone-frame {
-  transform: translateY(-10px) rotateY(5deg);
+  /* 删除下面的动效代码 */
+  /* transform: translateY(-10px) rotateY(5deg); */
 }
 
 .timeline-node .timeline-dot {
@@ -675,6 +569,11 @@ onMounted(() => {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
   }
+  
+  /* 全屏模式下保持原有列数 */
+  .fullscreen-mode .phone-displays-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
@@ -684,6 +583,18 @@ onMounted(() => {
   
   .roles-container {
     grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* 全屏模式下调整响应式布局 */
+  .fullscreen-mode .phone-displays-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  /* 全屏模式下在小屏幕上也调整为单列 */
+  .fullscreen-mode .phone-displays-container {
+    grid-template-columns: 1fr;
   }
 }
 </style> 
