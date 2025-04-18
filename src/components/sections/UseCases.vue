@@ -87,19 +87,37 @@
             >
               <!-- iPhone边框 -->
               <div class="iphone-frame relative">
-                <div class="iphone-outer w-[240px] h-[480px] rounded-[40px] bg-gray-800 p-2 shadow-xl">
-                  <div class="iphone-inner w-full h-full rounded-[32px] overflow-hidden bg-black relative">
+                <div class="iphone-outer w-[375px] h-[812px] rounded-[40px] bg-gray-800 p-3 shadow-xl">
+                  <div class="iphone-inner w-full h-full rounded-[36px] overflow-hidden bg-black relative">
                     <!-- 刘海 -->
-                    <div class="notch absolute top-0 left-1/2 transform -translate-x-1/2 w-[100px] h-[25px] bg-black z-10 rounded-b-xl"></div>
+                    <div class="notch absolute top-0 left-1/2 transform -translate-x-1/2 w-[120px] h-[30px] bg-black z-10 rounded-b-xl"></div>
                     
                     <!-- 屏幕内容 -->
                     <div class="screen w-full h-full bg-white">
-                      <img 
-                        v-if="getCurrentUIForRole(role.id)" 
-                        :src="getCurrentUIForRole(role.id)" 
-                        :alt="`${role.name}界面`"
-                        class="w-full h-full object-cover transition-opacity duration-300"
-                      >
+                      <template v-if="getCurrentUIForRole(role.id)">
+                        <!-- 视频内容 -->
+                        <video
+                          v-if="isVideoContent(getCurrentUIForRole(role.id))"
+                          class="w-full h-full object-cover"
+                          :src="getCurrentUIForRole(role.id)"
+                          :key="getCurrentUIForRole(role.id)"
+                          controls
+                          controlsList="nodownload"
+                          preload="metadata"
+                          playsinline
+                          @play="handleVideoPlay($event)"
+                          @click.stop
+                        >
+                          您的浏览器不支持视频播放。
+                        </video>
+                        <!-- 图片内容 -->
+                        <img 
+                          v-else
+                          :src="getCurrentUIForRole(role.id)" 
+                          :alt="`${role.name}界面`"
+                          class="w-full h-full object-cover transition-opacity duration-300"
+                        >
+                      </template>
                       <div v-else class="w-full h-full flex items-center justify-center bg-gray-100">
                         <p class="text-gray-400">等待操作...</p>
                       </div>
@@ -285,7 +303,16 @@ const isRoleActiveInCurrentStep = (roleId: string): boolean => {
 // 获取当前步骤角色的UI截图
 const getCurrentUIForRole = (roleId: string): string => {
   if (currentStepData.value.uiScreenshots && roleId in currentStepData.value.uiScreenshots) {
-    return currentStepData.value.uiScreenshots[roleId];
+    const path = currentStepData.value.uiScreenshots[roleId];
+    // 如果路径以 "../" 开头，转换为正确的路径
+    if (path.startsWith('../')) {
+      return path.replace('../', '/src/');
+    }
+    // 如果路径不是以 "/" 开头，添加 "/src/"
+    if (!path.startsWith('/')) {
+      return `/src/${path}`;
+    }
+    return path;
   }
   return '';
 };
@@ -317,6 +344,24 @@ const goToStep = (stepIndex: number) => {
   if (stepIndex >= 0 && stepIndex < journey.value.length) {
     currentStep.value = stepIndex;
   }
+};
+
+// 判断内容是否为视频
+const isVideoContent = (url: string): boolean => {
+  if (!url) return false;
+  const videoExtensions = ['.mp4', '.webm', '.ogg'];
+  return videoExtensions.some(ext => url.toLowerCase().endsWith(ext));
+};
+
+// 处理视频播放
+const handleVideoPlay = (event: Event) => {
+  // 暂停其他所有视频
+  const videos = document.querySelectorAll('video');
+  videos.forEach((video) => {
+    if (video !== event.target) {
+      video.pause();
+    }
+  });
 };
 
 // 页面加载完成后初始化
@@ -542,5 +587,35 @@ onUnmounted(() => {
   line-height: 1.5;
   display: inline-flex;
   align-items: center;
+}
+
+/* 视频控件样式优化 */
+.screen video {
+  @apply focus:outline-none cursor-pointer;
+}
+
+.screen video::-webkit-media-controls {
+  @apply opacity-0 transition-opacity duration-300;
+}
+
+.screen video:hover::-webkit-media-controls {
+  @apply opacity-100;
+}
+
+.screen video::-webkit-media-controls-panel {
+  @apply bg-black bg-opacity-40;
+}
+
+.screen video::-webkit-media-controls-play-button {
+  @apply text-white;
+}
+
+.screen video::-webkit-media-controls-timeline {
+  @apply cursor-pointer;
+}
+
+/* 在全屏模式下的视频控件样式 */
+.fullscreen-mode .screen video::-webkit-media-controls-panel {
+  @apply bg-opacity-60;
 }
 </style> 

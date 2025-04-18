@@ -52,8 +52,12 @@ const navItems = [
 <style scoped>
 /* 背景样式 */
 .linear-bg {
-  @apply bg-background-light dark:bg-background-dark;
-  background-image: var(--linear-bg-primary-light);
+  @apply min-h-screen;
+  background: var(--linear-bg-primary-light);
+}
+
+[data-theme="dark"] .linear-bg {
+  background: var(--linear-bg-primary-dark);
 }
 
 /* 导航栏毛玻璃效果 */
@@ -62,18 +66,32 @@ const navItems = [
   -webkit-backdrop-filter: var(--linear-blur);
   background: var(--linear-glass-light);
   border-bottom: var(--linear-border-light-primary);
-  @apply dark:bg-gray-800/80 dark:border-gray-700/30;
   box-shadow: var(--linear-shadow-secondary);
+}
+
+[data-theme="dark"] .linear-glass-nav {
+  background: var(--linear-glass-dark);
+  border-bottom: var(--linear-border-dark);
+  box-shadow: var(--linear-shadow-dark);
 }
 
 /* 导航链接样式 */
 .nav-link {
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  @apply font-medium tracking-wide;
+  color: var(--linear-text-secondary-light);
+}
+
+[data-theme="dark"] .nav-link {
+  color: var(--linear-text-secondary-dark);
 }
 
 .nav-link:hover {
+  color: var(--linear-text-primary-light);
   transform: translateY(-1px);
+}
+
+[data-theme="dark"] .nav-link:hover {
+  color: var(--linear-text-primary-dark);
 }
 
 /* 导航指示器 */
@@ -99,6 +117,12 @@ const navItems = [
   -webkit-backdrop-filter: var(--linear-blur);
   background: var(--linear-glass-light);
   border-top: var(--linear-border-light-primary);
-  @apply dark:bg-gray-800/80 dark:border-gray-700/30;
+  box-shadow: var(--linear-shadow-secondary);
+}
+
+[data-theme="dark"] .linear-glass-footer {
+  background: var(--linear-glass-dark);
+  border-top: var(--linear-border-dark);
+  box-shadow: var(--linear-shadow-dark);
 }
 </style>

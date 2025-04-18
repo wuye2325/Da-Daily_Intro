@@ -237,7 +237,7 @@ const communityFeatures = [
 [data-theme="dark"] .linear-feature-card {
   background: var(--linear-bg-secondary-dark);
   border: var(--linear-border-dark);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--linear-shadow-dark);
 }
 
 .linear-feature-card::before {
@@ -306,23 +306,21 @@ const communityFeatures = [
 
 /* 子特性 - 优化悬停效果 */
 .linear-sub-feature {
-  @apply relative transition-all duration-300 transform;
-  padding: 0.75rem;
-  border-radius: 0.75rem;
+  @apply relative transition-all duration-300 transform p-3 rounded-xl;
   border: 1px solid transparent;
 }
 
 .linear-sub-feature:hover {
   transform: translateY(-2px);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.9) 100%);
+  background: var(--linear-glass-light);
   border: var(--linear-border-light-secondary);
   box-shadow: var(--linear-shadow-secondary);
 }
 
 [data-theme="dark"] .linear-sub-feature:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.05) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: var(--linear-glass-dark);
+  border: var(--linear-border-dark);
+  box-shadow: var(--linear-shadow-dark);
 }
 
 /* 图标容器 - 增强光影效果 */
@@ -330,22 +328,17 @@ const communityFeatures = [
   @apply flex items-center justify-center rounded-full mr-3;
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.2) 100%);
-  box-shadow: var(--linear-shadow-inner), 0 2px 8px rgba(37, 99, 235, 0.1);
+  background: linear-gradient(135deg, var(--linear-accent-blue) 0%, rgba(37, 99, 235, 0.2) 100%);
+  box-shadow: var(--linear-shadow-inner), var(--linear-shadow-secondary);
   border: var(--linear-border-light-secondary);
   backdrop-filter: var(--linear-blur);
   transition: all 0.3s ease;
 }
 
-.linear-icon-wrapper:hover {
-  transform: translateY(-1px) scale(1.05);
-  box-shadow: var(--linear-shadow-inner), 0 4px 12px rgba(37, 99, 235, 0.15);
-}
-
 [data-theme="dark"] .linear-icon-wrapper {
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.3) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 2px 8px rgba(0, 0, 0, 0.2);
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), var(--linear-shadow-dark);
+  border: var(--linear-border-dark);
 }
 
 /* 复选图标 - 优化阴影效果 */
@@ -375,14 +368,35 @@ const communityFeatures = [
   @apply rounded-xl overflow-hidden relative;
   background: var(--linear-bg-tertiary-light);
   border: var(--linear-border-light-primary);
-  box-shadow: var(--linear-shadow-primary), 
-              inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  box-shadow: var(--linear-shadow-primary);
   backdrop-filter: var(--linear-blur);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  /* 使用普通 CSS 实现 4:3 宽高比 */
-  position: relative;
+  padding-top: 75%;
+}
+
+[data-theme="dark"] .linear-image-container {
+  background: var(--linear-bg-secondary-dark);
+  border: var(--linear-border-dark);
+  box-shadow: var(--linear-shadow-dark);
+}
+
+.linear-image-container:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--linear-shadow-primary), var(--linear-shadow-secondary);
+}
+
+[data-theme="dark"] .linear-image-container:hover {
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+}
+
+.linear-image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding-top: 75%; /* 3/4 = 75% */
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
 .linear-image-container::before {
@@ -399,35 +413,7 @@ const communityFeatures = [
   z-index: 2;
 }
 
-.linear-image-container img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-[data-theme="dark"] .linear-image-container {
-  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
-  border: var(--linear-border-dark);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
-              inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.linear-image-container:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1), 
-              inset 0 1px 0 rgba(255, 255, 255, 0.9);
-}
-
 .linear-image-container:hover img {
   transform: scale(1.03);
-}
-
-[data-theme="dark"] .linear-image-container:hover {
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4), 
-              inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 </style>

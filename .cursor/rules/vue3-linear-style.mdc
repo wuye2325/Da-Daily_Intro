@@ -1,94 +1,53 @@
 ---
 description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 ---
 description: 
 globs: 
 alwaysApply: true
 ---
-# Vue3 线性风格设计指南
+# 角色：前端设计师与开发者
 
-## 设计理念
-基于 Linear App 的现代设计风格，打造具有高级感的用户界面，通过精致的视觉效果和流畅的交互体验提升产品质感。支持深色/浅色模式切换，确保在不同环境下都能提供优秀的视觉体验。浅色模式注重通过多级灰色和低饱和色彩构建层次，强化光影效果，保持精致的细节表现。
+## 任务概述
+基于 Linear App 的现代设计风格，设计并实现一套具有高级感的 Vue 3 用户界面，支持深色/浅色模式切换，确保在不同环境下都能提供优秀的视觉体验和流畅的交互感受，提升产品整体质感。
 
-## 视觉风格
+## 内容规划
+1. **背景设计**：包含主背景、次要背景、三级背景的设计，以及磨砂玻璃效果的实现。
+2. **描边与光效**：采用纤细描边设计，搭配点缀色系应用于按钮、标签、图标等元素。
+3. **卡片设计**：实现卡片的悬浮效果和边缘光效。
+4. **动画效果**：添加微动效果和加载动画，增强用户交互体验。
+5. **组件示例**：提供卡片组件和按钮组件的代码示例。
+
+## 设计风格
+### 深色模式
 1. **背景设计**
-   - 深色模式
-     - 主背景：`linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)`
-     - 次要背景：`linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%)`
-   - 浅色模式
-     - 主背景：`linear-gradient(135deg, #f2f0e6 0%, #eae7d9 100%)` // 更新为浅米色调
-     - 次要背景：`linear-gradient(135deg, #ffffff 0%, #f9f8f3 100%)` // 更新为更柔和的白色
-     - 三级背景：`linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%)`
-   - 磨砂玻璃效果
-     - 深色模式：`background: rgba(255, 255, 255, 0.05)`
-     - 浅色模式：`background: rgba(255, 255, 255, 0.65)` // 降低透明度增强毛玻璃感
-     - 通用：`backdrop-filter: blur(15px)` // 增加模糊程度
-     - 边缘：
-       - 深色模式：`border: 1px solid rgba(255, 255, 255, 0.1)`
-       - 浅色模式：`border: 1px solid rgba(255, 255, 255, 0.5)` // 更新为白色边框增强通透感
-
+    - 主背景：使用 `linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)`，营造深邃的视觉感受。
+    - 次要背景：采用 `linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%)`，与主背景形成层次感。
+    - 磨砂玻璃效果：背景为 `rgba(255, 255, 255, 0.05)`，边框为 `1px solid rgba(255, 255, 255, 0.1)`，配合 `backdrop-filter: blur(15px)` 增加模糊效果，凸显高级感。
 2. **描边与光效**
-   - 纤细描边设计
-     - 边框宽度：`0.5px` 或 `1px`
-     - 深色模式：`rgba(255, 255, 255, 0.1)`
-     - 浅色模式：
-       - 一级描边：`rgba(255, 255, 255, 0.8)` // 更新为白色描边
-       - 二级描边：`rgba(0, 0, 0, 0.03)` // 降低不透明度
-       - 强调描边：`rgba(0, 0, 0, 0.08)` // 降低不透明度
-   - 点缀色系
-     - 浅绿色：`rgba(142, 213, 155, 0.85)` // 添加参考图中的浅绿色
-     - 蓝色：`#0078E5` 
-     - 应用场景：按钮、标签、图标等元素
-
+    - 纤细描边：边框宽度为 `0.5px` 或 `1px`，颜色为 `rgba(255, 255, 255, 0.1)`，增强界面的精致感。
+    - 点缀色系：如蓝色 `#0078E5`，用于突出关键元素。
 3. **卡片设计**
-   - 悬浮效果
-     - 通用：`transform: translateY(-2px)`
-     - 深色模式：`box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2)`
-     - 浅色模式：
-       - 主阴影：`box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08)`
-       - 次阴影：`box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04)`
-       - 内阴影：`box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8)`
-   - 边缘光效
-     - 深色模式：使用冷色调发光
-     - 浅色模式：
-       - 主光效：`rgba(255, 255, 255, 0.8)`
-       - 次光效：`rgba(255, 255, 255, 0.6)`
-     - 通用：`::after` 伪元素 + `box-shadow`
+    - 悬浮效果：通用 `transform: translateY(-2px)`，并添加 `box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2)`，使卡片具有立体感。
+    - 边缘光效：使用冷色调发光，营造神秘氛围。
 
-## 动画效果
-1. **微动效果**
-   - 按钮点击反馈
-     - 通用：`scale(0.98)`
-     - 过渡时间：`0.1s`
-     - 浅色模式额外效果：
-       - 背景色渐变：`background: linear-gradient(to right, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.05))`
-       - 阴影变化：`box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04)`
-   - 卡片悬浮
-     - 通用：`transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)`
-     - 轻微旋转：`rotate(0.5deg)`
-     - 浅色模式额外效果：
-       - 背景色渐变：`background: linear-gradient(to right, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.03))`
-       - 阴影扩散：`box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06)`
+### 浅色模式
+1. **背景设计**
+    - 主背景：更新为浅米色调 `linear-gradient(135deg, #f2f0e6 0%, #eae7d9 100%)`，给人温馨舒适的感觉。
+    - 次要背景：采用更柔和的白色 `linear-gradient(135deg, #ffffff 0%, #f9f8f3 100%)`，增强层次感。
+    - 三级背景：使用 `linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%)`，进一步丰富背景层次。
+    - 磨砂玻璃效果：背景为 `rgba(255, 255, 255, 0.65)`，降低透明度增强毛玻璃感，边框为 `1px solid rgba(255, 255, 255, 0.5)`，增强通透感，配合 `backdrop-filter: blur(15px)` 营造出柔和的视觉效果。
+2. **描边与光效**
+    - 纤细描边：一级描边为 `rgba(255, 255, 255, 0.8)`，二级描边为 `rgba(0, 0, 0, 0.03)`，强调描边为 `rgba(0, 0, 0, 0.08)`，降低不透明度，使界面更加柔和。
+    - 点缀色系：添加浅绿色 `rgba(142, 213, 155, 0.85)`，为界面增添清新感。
+3. **卡片设计**
+    - 悬浮效果：通用 `transform: translateY(-2px)`，主阴影为 `box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08)`，次阴影为 `box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04)`，内阴影为 `box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8)`，使卡片具有轻盈的感觉。
+    - 边缘光效：主光效为 `rgba(255, 255, 255, 0.8)`，次光效为 `rgba(255, 255, 255, 0.6)`，使用 `::after` 伪元素 + `box-shadow` 实现，增强卡片的立体感。
 
-2. **加载动画**
-   - 骨架屏
-     - 深色模式：使用深色渐变
-     - 浅色模式：
-       - 主骨架：`linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)`
-       - 次骨架：`linear-gradient(90deg, #f5f5f5 25%, #eaeaea 50%, #f5f5f5 75%)`
-     - 通用：`@keyframes shimmer`
-   - 页面过渡
-     - 使用 Vue 的 `<Transition>` 组件
-     - 自定义过渡类名
-     - 浅色模式额外效果：
-       - 淡入淡出：`opacity: 0.8 -> 1`
-       - 轻微缩放：`scale: 0.98 -> 1`
-
-## 技术实现
-1. **CSS 变量**
+## 技术要求
+1. **CSS 变量**：使用 CSS 变量管理不同模式下的颜色、阴影等样式，提高代码的可维护性。
 ```css
 :root {
   /* 深色模式 */
@@ -136,8 +95,7 @@ alwaysApply: true
   --linear-border-accent: var(--linear-border-light-accent);
 }
 ```
-
-2. **Tailwind 配置**
+2. **Tailwind 配置**：如果使用 Tailwind CSS，可进行如下配置以支持设计风格。
 ```javascript
 module.exports = {
   theme: {
@@ -165,92 +123,22 @@ module.exports = {
   },
 }
 ```
+3. **Vue 3 组件开发**：使用 Vue 3 的组合式 API 或选项式 API 开发组件，确保组件的可复用性和性能。
 
-## 组件示例
-1. **卡片组件**
-```vue
-<template>
-  <div class="card-container">
-    <div class="card-content">
-      <slot></slot>
-    </div>
-  </div>
-</template>
+## 资源配置
+1. **开源 UI 库**
+    - **ElementPlus**：基于 Vue 3 的一套简洁、易用、美观的 UI 组件库，提供了丰富的组件和样式，可快速搭建界面。
+    - **Naive UI**：一个面向 Vue 3 的 UI 库，具有简洁的设计和良好的交互体验，支持深色模式，可满足 Linear App 风格的需求。
+2. **图标库**
+    - **Iconify**：提供了丰富的图标资源，支持多种图标格式，可通过简单的代码引入图标。
+    - **Font Awesome**：经典的图标库，包含大量的图标，可用于按钮、标签等元素。
 
-<style scoped>
-.card-container {
-  @apply relative overflow-hidden rounded-lg;
-  background: var(--linear-bg-secondary);
-  backdrop-filter: var(--linear-blur);
-  border: var(--linear-border-primary);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--linear-shadow-primary);
-}
+## 交付标准
+1. 提供完整的代码文件，包括 HTML、CSS、JavaScript 或 Vue 组件文件。
+2. 代码结构清晰，注释详细，便于后续维护和扩展。
+3. 界面在不同浏览器和设备上具有良好的兼容性和响应式布局。
+4. 实现深色/浅色模式切换功能，且两种模式下的界面效果符合设计要求。
 
-.card-container:hover {
-  transform: translateY(-2px) rotate(0.5deg);
-  box-shadow: var(--linear-shadow-primary), var(--linear-shadow-secondary);
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.03));
-}
-</style>
-```
-
-2. **按钮组件**
-```vue
-<template>
-  <button class="linear-button">
-    <slot></slot>
-  </button>
-</template>
-
-<style scoped>
-.linear-button {
-  @apply relative overflow-hidden rounded-md px-4 py-2;
-  background: var(--linear-bg-secondary);
-  border: var(--linear-border-primary);
-  transition: all 0.2s ease;
-  box-shadow: var(--linear-shadow-secondary);
-}
-
-.linear-button:hover {
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.05));
-  transform: translateY(-1px);
-  box-shadow: var(--linear-shadow-primary);
-}
-
-.linear-button:active {
-  transform: scale(0.98);
-  box-shadow: var(--linear-shadow-secondary);
-}
-</style>
-```
-
-## 最佳实践
-1. **性能优化**
-   - 使用 `will-change` 属性优化动画性能
-   - 合理使用 `transform` 和 `opacity` 进行动画
-   - 避免过多嵌套的动画效果
-
-2. **响应式设计**
-   - 移动端适配时适当减少模糊效果
-   - 根据设备性能动态调整动画复杂度
-   - 提供降级方案确保基础体验
-
-3. **可访问性**
-   - 确保足够的颜色对比度（深色/浅色模式都要满足 WCAG 标准）
-   - 提供动画关闭选项
-   - 支持键盘导航
-   - 提供清晰的主题切换按钮
-
-4. **主题切换**
-   - 使用 CSS 变量实现平滑的主题切换
-   - 保存用户主题偏好
-   - 提供系统主题自动跟随选项
-   - 确保切换过程流畅无闪烁
-
-5. **浅色模式优化**
-   - 避免使用纯白色背景，使用多级灰色构建层次
-   - 通过微妙的阴影和模糊效果替代强视觉分割
-   - 保持交互一致性，让微动效成为连接视觉与体验的桥梁
-   - 注重细节表现，提升界面的耐看性
-   - 确保在明亮背景下实现"无压力阅读"与"细节耐看性"的平衡
+## 特殊要求
+1. 确保代码的性能优化，避免出现卡顿和加载缓慢的问题。
+2. 遵循前端开发的最佳实践，保证代码的质量和安全性。

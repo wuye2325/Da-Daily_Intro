@@ -137,13 +137,17 @@ const productAdvantages = [
 /* 高亮卡片 */
 .linear-highlight-card {
   @apply rounded-xl p-8 relative overflow-hidden;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.85) 0%, rgba(79, 70, 229, 0.85) 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--linear-accent-blue) 0%, rgba(79, 70, 229, 0.85) 100%);
   box-shadow: var(--linear-shadow-primary);
   border: var(--linear-border-light-primary);
   backdrop-filter: var(--linear-blur);
   will-change: transform;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .linear-highlight-card {
+  border: var(--linear-border-dark);
+  box-shadow: var(--linear-shadow-dark);
 }
 
 .linear-highlight-card:hover {
@@ -162,6 +166,22 @@ const productAdvantages = [
   z-index: 1;
 }
 
+.linear-highlight-card p {
+  color: var(--linear-text-primary-light);
+}
+
+[data-theme="dark"] .linear-highlight-card p {
+  color: var(--linear-text-primary-dark);
+}
+
+.linear-highlight-card p.text-lg {
+  color: var(--linear-text-secondary-light);
+}
+
+[data-theme="dark"] .linear-highlight-card p.text-lg {
+  color: var(--linear-text-secondary-dark);
+}
+
 /* 核心价值卡片 */
 .linear-value-card {
   @apply rounded-xl p-6 text-center relative overflow-hidden;
@@ -177,18 +197,18 @@ const productAdvantages = [
 [data-theme="dark"] .linear-value-card {
   background: var(--linear-bg-secondary-dark);
   border: var(--linear-border-dark);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--linear-shadow-dark);
 }
 
 .linear-value-card:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--linear-shadow-primary);
   border: var(--linear-border-light-primary);
 }
 
 [data-theme="dark"] .linear-value-card:hover {
-  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: var(--linear-shadow-dark);
+  border: var(--linear-border-dark);
 }
 
 /* 产品优势卡片 */
@@ -204,18 +224,18 @@ const productAdvantages = [
 [data-theme="dark"] .linear-advantage-card {
   background: var(--linear-bg-secondary-dark);
   border: var(--linear-border-dark);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--linear-shadow-dark);
 }
 
 .linear-advantage-card:hover {
   transform: translateY(-2px) rotate(0.5deg);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--linear-shadow-primary), var(--linear-shadow-secondary);
   border: var(--linear-border-light-primary);
 }
 
 [data-theme="dark"] .linear-advantage-card:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: var(--linear-shadow-dark);
+  border: var(--linear-border-dark);
 }
 
 /* 装饰性分隔线 */
@@ -223,58 +243,75 @@ const productAdvantages = [
   height: 0.5px;
   width: 48px;
   margin-bottom: 8px;
-  background: linear-gradient(to right, rgba(37, 99, 235, 0.8), rgba(37, 99, 235, 0.2));
+  background: linear-gradient(to right, var(--linear-accent-blue), rgba(37, 99, 235, 0.2));
 }
 
 [data-theme="dark"] .linear-divider {
   background: linear-gradient(to right, rgba(96, 165, 250, 0.8), rgba(96, 165, 250, 0.2));
 }
 
-/* 文本颜色增强 */
-.linear-value-card h4 {
-  color: var(--color-text-primary-light);
+/* 文本颜色 */
+.linear-section-bg-alt h2 {
+  color: var(--linear-heading-primary-light);
+}
+
+[data-theme="dark"] .linear-section-bg-alt h2 {
+  color: var(--linear-heading-primary-dark);
+}
+
+.linear-section-bg-alt h3 {
+  color: var(--linear-heading-secondary-light);
+}
+
+[data-theme="dark"] .linear-section-bg-alt h3 {
+  color: var(--linear-heading-secondary-dark);
+}
+
+.linear-section-bg-alt p {
+  color: var(--linear-text-secondary-light);
+}
+
+[data-theme="dark"] .linear-section-bg-alt p {
+  color: var(--linear-text-secondary-dark);
+}
+
+/* 文本颜色 */
+.linear-value-card h4,
+.linear-advantage-card h4 {
+  color: var(--linear-heading-secondary-light);
   transition: color 0.2s ease;
 }
 
-[data-theme="dark"] .linear-value-card h4 {
-  color: var(--color-text-primary-dark);
+[data-theme="dark"] .linear-value-card h4,
+[data-theme="dark"] .linear-advantage-card h4 {
+  color: var(--linear-heading-secondary-dark);
 }
 
-.linear-value-card:hover h4 {
-  color: #3b82f6;
-}
-
-[data-theme="dark"] .linear-value-card:hover h4 {
-  color: #60a5fa;
-}
-
-.linear-value-card p {
-  color: var(--color-text-secondary-light);
-  transition: color 0.2s ease;
-}
-
-[data-theme="dark"] .linear-value-card p {
-  color: var(--color-text-secondary-dark);
-}
-
-.linear-value-card:hover p {
-  color: var(--color-text-primary-light);
-}
-
-[data-theme="dark"] .linear-value-card:hover p {
-  color: var(--color-text-primary-dark);
-}
-
+.linear-value-card p,
 .linear-advantage-card li {
-  transition: color 0.2s ease, transform 0.2s ease;
+  color: var(--linear-text-secondary-light);
+  transition: color 0.2s ease;
 }
 
-.linear-advantage-card:hover li {
-  color: var(--color-text-primary-light);
-  transform: translateX(2px);
+[data-theme="dark"] .linear-value-card p,
+[data-theme="dark"] .linear-advantage-card li {
+  color: var(--linear-text-secondary-dark);
 }
 
-[data-theme="dark"] .linear-advantage-card:hover li {
-  color: var(--color-text-primary-dark);
+/* 痛点文本颜色 */
+.linear-advantage-card .text-red-600 {
+  color: #dc2626;
+}
+
+[data-theme="dark"] .linear-advantage-card .text-red-600 {
+  color: #f87171;
+}
+
+.linear-advantage-card .text-blue-600 {
+  color: var(--linear-text-accent-light);
+}
+
+[data-theme="dark"] .linear-advantage-card .text-blue-600 {
+  color: var(--linear-text-accent-dark);
 }
 </style>

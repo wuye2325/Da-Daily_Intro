@@ -6,11 +6,19 @@ export const useThemeStore = defineStore('theme', () => {
 
   // 初始化主题
   const initTheme = () => {
-    const savedTheme = localStorage.getItem('theme')
-    if (savedTheme) {
-      theme.value = savedTheme as 'light' | 'dark'
+    // 1. 首先检查 HTML data-theme 属性
+    const htmlTheme = document.documentElement.getAttribute('data-theme')
+    if (htmlTheme === 'dark' || htmlTheme === 'light') {
+      theme.value = htmlTheme
     } else {
-      theme.value = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      // 2. 然后检查 localStorage
+      const savedTheme = localStorage.getItem('theme')
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        theme.value = savedTheme
+      } else {
+        // 3. 最后检查系统偏好
+        theme.value = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      }
     }
     applyTheme()
   }
@@ -23,11 +31,9 @@ export const useThemeStore = defineStore('theme', () => {
 
   // 应用主题
   const applyTheme = () => {
-    if (theme.value === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
+    // 更新 HTML data-theme 属性
+    document.documentElement.setAttribute('data-theme', theme.value)
+    // 保存到 localStorage
     localStorage.setItem('theme', theme.value)
   }
 

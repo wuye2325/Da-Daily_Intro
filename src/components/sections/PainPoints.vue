@@ -86,32 +86,31 @@ const painPoints = [
 /* Linear 风格卡片 - 增强毛玻璃效果 */
 .linear-card {
   @apply relative rounded-xl p-6 overflow-hidden;
-  /* 浅色模式样式 */
   background: var(--linear-glass-light);
   border: var(--linear-border-light-primary);
   backdrop-filter: var(--linear-blur);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--linear-shadow-secondary), var(--linear-shadow-inner);
+  box-shadow: var(--linear-shadow-secondary);
   transform: translateZ(0);
   will-change: transform, box-shadow;
 }
 
-/* 深色模式卡片样式 */
 [data-theme="dark"] .linear-card {
   background: var(--linear-glass-dark);
   border: var(--linear-border-dark);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--linear-shadow-dark);
 }
 
 /* 鼠标悬停效果 */
 .linear-card:hover {
   transform: translateY(-2px) rotate(0.5deg);
   box-shadow: var(--linear-shadow-primary);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: var(--linear-border-light-primary);
 }
 
-.linear-card:hover::after {
-  opacity: 1;
+[data-theme="dark"] .linear-card:hover {
+  box-shadow: var(--linear-shadow-dark);
+  border: var(--linear-border-dark);
 }
 
 /* 动态流光效果 */
@@ -142,19 +141,35 @@ const painPoints = [
   100% { background-position: 0% 50% }
 }
 
-/* 图标容器样式 - 更新为更精致的光影效果 */
+/* 图标容器样式 */
 .linear-icon-container {
   @apply rounded-full p-3 mr-4 relative;
-  background: linear-gradient(135deg, rgba(82, 109, 230, 0.1) 0%, rgba(82, 109, 230, 0.2) 100%);
+  background: linear-gradient(135deg, var(--linear-accent-blue) 0%, rgba(82, 109, 230, 0.2) 100%);
   box-shadow: var(--linear-shadow-inner);
   border: var(--linear-border-light-secondary);
   backdrop-filter: var(--linear-blur);
 }
 
-/* 深色模式图标容器 */
 [data-theme="dark"] .linear-icon-container {
   background: linear-gradient(135deg, rgba(82, 109, 230, 0.2) 0%, rgba(82, 109, 230, 0.3) 100%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border: 0.5px solid rgba(255, 255, 255, 0.1);
+  border: var(--linear-border-dark);
+}
+
+/* 文本颜色 */
+.linear-card h3 {
+  color: var(--linear-text-primary-light);
+}
+
+[data-theme="dark"] .linear-card h3 {
+  color: var(--linear-text-primary-dark);
+}
+
+.linear-card li {
+  color: var(--linear-text-secondary-light);
+}
+
+[data-theme="dark"] .linear-card li {
+  color: var(--linear-text-secondary-dark);
 }
 </style>
