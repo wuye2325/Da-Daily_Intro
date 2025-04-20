@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大家得利:智慧社区管家</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            transition: all 0.5s ease;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            width: 24px;
+            border-radius: 6px;
+            background-color: #3b82f6;
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .highlight-text {
+            background: linear-gradient(120deg, #93c5fd 0%, #3b82f6 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+        }
+        
+        .solution-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        .solution-table tr:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem;
+        }
+        
+        .timeline-item:before {
+            content: "";
+            position: absolute;
+            left: 0.75rem;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: #e2e8f0;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 0.5rem;
+            top: 0.25rem;
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background: #3b82f6;
+            z-index: 1;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="relative">
+    <!-- Navigation Dots -->
+    <div class="fixed right-8 top-1/2 transform -translate-y-1/2 z-50 hidden md:block">
+        <div class="flex flex-col space-y-4">
+            <a href="#slide1" class="nav-dot rounded-full bg-gray-300 block active"></a>
+            <a href="#slide2" class="nav-dot rounded-full bg-gray-300 block"></a>
+            <a href="#slide3" class="nav-dot rounded-full bg-gray-300 block"></a>
+            <a href="#slide4" class="nav-dot rounded-full bg-gray-300 block"></a>
+            <a href="#slide5" class="nav-dot rounded-full bg-gray-300 block"></a>
+            <a href="#slide6" class="nav-dot rounded-full bg-gray-300 block"></a>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-40">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white">
+                    <i class="fas fa-home text-xl"></i>
+                </div>
+                <h1 class="text-xl font-bold text-gray-800">大家得利</h1>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#slide1" class="text-gray-600 hover:text-blue-500 transition">首页</a>
+                <a href="#slide2" class="text-gray-600 hover:text-blue-500 transition">痛点分析</a>
+                <a href="#slide3" class="text-gray-600 hover:text-blue-500 transition">解决方案</a>
+                <a href="#slide4" class="text-gray-600 hover:text-blue-500 transition">应用案例</a>
+                <a href="#slide5" class="text-gray-600 hover:text-blue-500 transition">开启条件</a>
+                <a href="#slide6" class="text-gray-600 hover:text-blue-500 transition">联系我们</a>
+            </div>
+            <button class="md:hidden text-gray-600">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Slides -->
+    <main>
+        <!-- Slide 1: Cover -->
+        <section id="slide1" class="slide bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
+            <div class="container mx-auto px-6 max-w-5xl text-center fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                    大家得利: <span class="highlight-text">智慧社区管家</span>
+                </h1>
+                <h2 class="text-2xl md:text-3xl text-gray-600 mb-8">
+                    赋能业委会高效治理的小程序
+                </h2>
+                <div class="bg-white inline-block px-6 py-3 rounded-full shadow-md mb-10">
+                    <p class="text-lg font-medium text-blue-600">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        让数据跑腿，让业主参与，让管理透明
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </p>
+                </div>
+                <div class="flex justify-center space-x-4">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium transition flex items-center">
+                        <i class="fab fa-weixin mr-2"></i> 立即体验
+                    </button>
+                    <button class="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-full font-medium transition flex items-center">
+                        <i class="fas fa-play-circle mr-2"></i> 产品演示
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 2: Pain Points -->
+        <section id="slide2" class="slide bg-white">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2 text-center">
+                    小区治理的<span class="text-blue-600">四大痛点</span>
+                </h2>
+                <div class="w-24 h-1 bg-blue-500 mx-auto mb-12"></div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Pain Point 1 -->
+                    <div class="feature-card bg-gray-50 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center text-red-500 mr-4">
+                                <i class="fas fa-exclamation-triangle text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800">社区事务信息不透明，易引发矛盾</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 pl-16">
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-xs text-red-500 mt-2 mr-2"></i>
+                                <span>信息周期长，了解不全面</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-xs text-red-500 mt-2 mr-2"></i>
+                                <span>信息不对称，决策过程难追溯</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Pain Point 2 -->
+                    <div class="feature-card bg-gray-50 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-500 mr-4">
+                                <i class="fas fa-users-slash text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800">业主参与率低，共识难达成</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 pl-16">
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-xs text-yellow-500 mt-2 mr-2"></i>
+                                <span>居民意见反馈渠道不畅，响应滞后</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-xs text-yellow-500 mt-2 mr-2"></i>
+                                <span>邻里互动缺失，社区归属感弱</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Pain Point 3 -->
+                    <div class="feature-card bg-gray-50 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-500 mr-4">
+                                <i class="fas fa-building-shield text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800">物业服务质量监管困难</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 pl-16">
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-xs text-purple-500 mt-2 mr-2"></i>
+                                <span>物业收费不透明，服务响应慢，投诉无门</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-xs text-purple-500 mt-2 mr-2"></i>
+                                <span>缺乏有效监督机制和评价体系</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Pain Point 4 -->
+                    <div class="feature-card bg-gray-50 p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-500 mr-4">
+                                <i class="fas fa-sitemap text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800">业委会长效管理机制缺失</h3>
+                        </div>
+                        <ul class="text-gray-600 space-y-2 pl-16">
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-xs text-green-500 mt-2 mr-2"></i>
+                                <span>流程混乱，权责不清，缺乏标准化工具</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-xs text-green-500 mt-2 mr-2"></i>
+                                <span>精力有限、资源匮乏，管理效率低下</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 3: Solutions -->
+        <section id="slide3" class="slide bg-gray-50">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2 text-center">
+                    痛点即机遇——<span class="text-blue-600">我们的解决方案</span>
+                </h2>
+                <div class="w-24 h-1 bg-blue-500 mx-auto mb-12"></div>
+                
+                <div class="bg-white rounded-xl shadow-md p-8 mb-12">
+                    <div class="flex flex-col md:flex-row items-center mb-8">
+                        <div class="md:w-1/3 mb-6 md:mb-0">
+                            <div class="bg-blue-100 text-blue-800 rounded-lg p-4 inline-block">
+                                <i class="fas fa-bullseye text-4xl"></i>
+                            </div>
+                        </div>
+                        <div class="md:w-2/3">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">产品定位</h3>
+                            <p class="text-gray-600 mb-4">
+                                业委会专属的数字化治理中枢，「基础提效 - 协同监督 - 生态共建」三级价值体系，业委会驱动社区数字化升级
+                            </p>
+                            <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
+                                <p class="text-blue-700 font-medium">
+                                    <i class="fas fa-quote-left mr-2"></i>
+                                    让数据跑腿，让业主参与，让管理透明
+                                    <i class="fas fa-quote-right ml-2"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-indigo-50 p-6 rounded-lg">
+                            <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 mb-4">
+                                <i class="fas fa-user-tie text-xl"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-2">业委会</h4>
+                            <p class="text-gray-600 text-sm">全流程标准化工具，降低治理门槛</p>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-4">
+                                <i class="fas fa-users text-xl"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-2">业主</h4>
+                            <p class="text-gray-600 text-sm">透明化信息获取与便捷参与渠道</p>
+                        </div>
+                        <div class="bg-purple-50 p-6 rounded-lg">
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mb-4">
+                                <i class="fas fa-building text-xl"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-2">物业</h4>
+                            <p class="text-gray-600 text-sm">高效协同工作平台</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+                    从「事务繁琐」到「数字中枢」的三大升级
+                </h3>
+                
+                <div class="bg-white rounded-xl shadow-md overflow-hidden mb-12">
+                    <table class="solution-table w-full">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="py-3 px-4 text-left text-gray-700 font-semibold">传统治理痛点</th>
+                                <th class="py-3 px-4 text-left text-gray-700 font-semibold">产品解决方案</th>
+                                <th class="py-3 px-4 text-left text-gray-700 font-semibold">核心功能支撑</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-3 px-4 text-gray-600 border-b">流程混乱、权责不清</td>
+                                <td class="py-3 px-4 text-blue-600 font-medium border-b">全流程引擎自动化</td>
+                                <td class="py-3 px-4 text-gray-600 border-b">用印申请（多印章管理）、通知发布（多渠道推送 + 阅读追踪）、问卷调查（模板化 + 结果可视化）</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 text-gray-600 border-b">业主参与低、沟通低效</td>
+                                <td class="py-3 px-4 text-blue-600 font-medium border-b">智能触达与决策工具</td>
+                                <td class="py-3 px-4 text-gray-600 border-b">业主清册智能管理（楼栋可视化 + 批量导入）、联名动议（投票规则配置 + 结果可视化）</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 text-gray-600">数据不透明、监管难留痕</td>
+                                <td class="py-3 px-4 text-blue-600 font-medium">动态公开与档案管理</td>
+                                <td class="py-3 px-4 text-gray-600">维修基金实时查、公共收益穿透式管理、小区档案在线预览 / 搜索</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+                    核心功能一览
+                </h3>
+                
+                <div class="grid md:grid-cols-3 gap-6 mb-12">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="bg-blue-600 p-4">
+                            <h4 class="text-white font-bold text-lg">业委会工作全流程管理</h4>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-start mb-4">
+                                <div class="bg-blue-100 text-blue-800 rounded-full p-2 mr-3">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <p class="text-gray-600 text-sm">开箱即用的合法合规流程引擎</p>
+                            </div>
+                            <div class="flex items-start mb-4">
+                                <div class="bg-blue-100 text-blue-800 rounded-full p-2 mr-3">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <p class="text-gray-600 text-sm">智能通知、精准跟进</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 text-blue-800 rounded-full p-2 mr-3">
+                                    <i class="fas fa-address-book"></i>
+                                </div>
+                                <p class="text-gray-600 text-sm">业主清册智能管理</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="bg-green-600 p-4">
+                            <h4 class="text-white font-bold text-lg">小区治理知识社区</h4>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-start mb-4">
+                                <div class="bg-green-100 text-green-800 rounded-full p-2 mr-3">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <p class="text-gray-600 text-sm">分级知识体系</p>
+                            </div>
+                            <div class="flex items-start mb-4">
+                                <div class="bg-green-100 text-green-800 rounded-full p-2 mr-3">
+                                    <i class="fas fa-photo-film"></i>
+                                </div>
+                                <p class="text-gray-600 text-sm">多元内容形式</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-green-100 text-green-800 rounded-full p-2 mr-3">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <p class="text-gray-600 text-sm">互动学习机制</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="bg-purple-600 p-4">
+                            <h4 class="text-white font-bold text-lg">邻里互动社区</h4>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-start mb-4">
+                                <div class="bg-purple-100 text-purple-800 rounded-full p-2 mr-3">
+                                    <i class="fas fa-timeline"></i>
+                                </div>
+                                <p class="text-gray-600 text-sm">事件全周期追踪体系</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 text-purple-800 rounded-full p-2 mr-3">
+                                    <i class="fas fa-tags"></i>
+                                </div>
+                                <p class="text-gray-600 text-sm">多元化内容平台</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 4: Case Study -->
+        <section id="slide4" class="slide bg-white">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2 text-center">
+                    场景化应用案例
+                </h2>
+                <div class="w-24 h-1 bg-blue-500 mx-auto mb-12"></div>
+                
+                <div class="bg-gray-50 rounded-xl p-8 mb-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+                        地面停车位改造全流程
+                    </h3>
+                    
+                    <div class="timeline-item mb-8">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-gray-800 mb-2">1. 问题发现与动议发起</h4>
+                            <p class="text-gray-600 text-sm">
+                                业主通过小程序"报事报修"功能提交停车位不足问题，系统自动生成工单并通知业委会。5位业主通过"联名动议"功能正式发起改造提案。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item mb-8">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-gray-800 mb-2">2. 方案设计与意见征集</h4>
+                            <p class="text-gray-600 text-sm">
+                                业委会使用"问卷调查"功能向全体业主发送改造方案选项，系统自动统计结果并生成可视化报告。同时通过"知识社区"参考其他小区成功案例。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item mb-8">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-gray-800 mb-2">3. 业主大会与投票表决</h4>
+                            <p class="text-gray-600 text-sm">
+                                通过小程序"通知公告"功能发布业主大会信息，设置线上投票通道。系统自动验证业主身份，实时显示投票进度，最终生成具有法律效力的电子决议。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-gray-800 mb-2">4. 执行监督与成果公示</h4>
+                            <p class="text-gray-600 text-sm">
+                                改造过程中，业委会通过"维修基金"模块实时监控资金使用，业主可通过"事务公开"查看施工日志。完工后上传验收资料至"小区档案"，自动通知全体业主。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium transition flex items-center mx-auto">
+                        <i class="fas fa-list-check mr-2"></i> 查看更多案例
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 5: Requirements -->
+        <section id="slide5" class="slide bg-gray-50">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2 text-center">
+                    开启条件
+                </h2>
+                <div class="w-24 h-1 bg-blue-500 mx-auto mb-12"></div>
+                
+                <div class="bg-white rounded-xl shadow-md p-8 mb-8">
+                    <p class="text-gray-600 mb-8 text-center">
+                        使用小程序的前置条件：
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 text-blue-800 rounded-full p-3 mr-4">
+                                <i class="fas fa-file-signature text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-2">保密协议签署</h4>
+                                <p class="text-gray-600 text-sm">保护业主隐私数据安全，明确各方权责</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-green-100 text-green-800 rounded-full p-3 mr-4">
+                                <i class="fas fa-database text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-2">授权平台使用业主清册</h4>
+                                <p class="text-gray-600 text-sm">确保业主身份验证准确性</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 text-purple-800 rounded-full p-3 mr-4">
+                                <i class="fas fa-file-contract text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-2">上传三本规约</h4>
+                                <p class="text-gray-600 text-sm">业主大会议事规则、业委会工作规则、管理规约</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-yellow-100 text-yellow-800 rounded-full p-3 mr-4">
+                                <i class="fas fa-handshake text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-2">邀请物业公司项目经理入驻平台</h4>
+                                <p class="text-gray-600 text-sm">建立三方协同工作机制</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-50 rounded-xl p-8 text-center">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">立即开启智慧社区新篇章</h3>
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition flex items-center justify-center">
+                            <i class="fab fa-weixin mr-2"></i> 下载小程序
+                        </button>
+                        <button class="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-full font-medium transition flex items-center justify-center">
+                            <i class="fas fa-headset mr-2"></i> 客服咨询
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 6: Contact -->
+        <section id="slide6" class="slide bg-gradient-to-br from-blue-800 to-indigo-900 flex items-center justify-center">
+            <div class="container mx-auto px-6 max-w-5xl text-center text-white">
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-12">
+                    <h2 class="text-4xl font-bold mb-6">
+                        "让社区治理更简单，让邻里关系更温暖"
+                    </h2>
+                    <p class="text-xl mb-8 opacity-90">
+                        期待与您共建智慧社区新生态
+                    </p>
+                    
+                    <div class="grid md:grid-cols-3 gap-8 mb-12">
+                        <div>
+                            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-globe text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-2">官网</h4>
+                            <p class="opacity-80 text-sm">www.dajiadel.com</p>
+                        </div>
+                        
+                        <div>
+                            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fab fa-weixin text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-2">微信公众号</h4>
+                            <p class="opacity-80 text-sm">大家得利智慧社区</p>
+                        </div>
+                        
+                        <div>
+                            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-2">合作邮箱</h4>
+                            <p class="opacity-80 text-sm">partner@dajiadel.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center space-x-6">
+                        <a href="#" class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition">
+                            <i class="fab fa-weibo"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition">
+                            <i class="fab fa-zhihu"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        // Update navigation dots on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navDots = document.querySelectorAll('.nav-dot');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= sectionTop - 300 && pageYOffset < sectionTop + sectionHeight - 300) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navDots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('href') === `#${currentSection}`) {
+                    dot.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add fade-in animation when elements come into view
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            fadeObserver.observe(el);
+        });
+    </script>
+</body>
+</html>
