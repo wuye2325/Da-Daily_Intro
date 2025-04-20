@@ -1,31 +1,8 @@
 <template>
-  <section class="linear-section-bg-alt py-16 w-full" :class="{'fullscreen-mode': isFullscreen}">
+  <section class="linear-section-bg-alt py-16 w-full">
     <div class="container mx-auto px-4 relative">
       <!-- 放大/返回按钮 - 应用类似 Solutions.vue 图标容器的样式 -->
-      <button 
-        @click="toggleFullscreen" 
-        class="fullscreen-toggle absolute right-4 top-4 z-20 p-2 rounded-full bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all"
-        aria-label="放大或返回"
-      >
-        <svg 
-          v-if="!isFullscreen" 
-          class="w-5 h-5 text-gray-700 dark:text-gray-300" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
-        </svg>
-        <svg 
-          v-else 
-          class="w-5 h-5 text-gray-700 dark:text-gray-300" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+      <!-- Fullscreen button removed -->
 
       <h2 class="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">小区治理应用场景</h2>
       <p class="text-lg text-center text-gray-600 dark:text-gray-400 mb-10 max-w-3xl mx-auto">
@@ -211,39 +188,6 @@ import { ref, computed, onMounted, onUnmounted, reactive } from 'vue';
 // 导入JSON数据
 import journeyData from '../../data/journeyData.json';
 
-// 添加全屏状态变量
-const isFullscreen = ref(false);
-
-// 切换全屏状态
-const toggleFullscreen = () => {
-  isFullscreen.value = !isFullscreen.value;
-  
-  // 如果切换到全屏模式，滚动到组件位置
-  if (isFullscreen.value) {
-    // 保存当前滚动位置，以便返回时恢复
-    document.body.dataset.prevScrollY = window.scrollY.toString();
-    // 禁止页面滚动
-    document.body.style.overflow = 'hidden';
-    // 添加ESC键监听
-    window.addEventListener('keydown', handleEscKey);
-  } else {
-    // 恢复页面滚动
-    document.body.style.overflow = '';
-    // 可选：恢复之前的滚动位置
-    const prevScrollY = parseInt(document.body.dataset.prevScrollY || '0');
-    window.scrollTo({ top: prevScrollY, behavior: 'smooth' });
-    // 移除ESC键监听
-    window.removeEventListener('keydown', handleEscKey);
-  }
-};
-
-// 处理ESC键退出全屏
-const handleEscKey = (event: KeyboardEvent) => {
-  if (event.key === 'Escape' && isFullscreen.value) {
-    toggleFullscreen();
-  }
-};
-
 // 角色定义
 interface Role {
   id: string;
@@ -398,11 +342,6 @@ onMounted(() => {
 
 // 组件卸载时清理事件监听
 onUnmounted(() => {
-  if (isFullscreen.value) {
-    window.removeEventListener('keydown', handleEscKey);
-    document.body.style.overflow = '';
-  }
-  
   // 移除resize事件监听
   window.removeEventListener('resize', () => {});
 });
@@ -476,64 +415,6 @@ onUnmounted(() => {
 }
 [data-theme="dark"] .use-cases-section {
   background: var(--linear-bg-primary-dark);
-}
-
-.fullscreen-mode {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1000; /* Ensure it's on top */
-  padding: 2rem; /* Add padding */
-  margin: 0;
-  border-radius: 0;
-  overflow-y: auto; /* Allow scrolling if content overflows */
-  background: var(--linear-bg-primary-light); /* Match background */
-}
-
-[data-theme="dark"] .fullscreen-mode {
-  background: var(--linear-bg-primary-dark);
-}
-
-.fullscreen-mode .container {
-  max-width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.fullscreen-mode .fullscreen-toggle {
-  position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
-  z-index: 1010; /* Ensure button is above content */
-}
-
-.fullscreen-mode .interaction-area {
-  flex-grow: 1;
-  display: flex; /* Use flexbox for better vertical centering */
-  flex-direction: column; /* Stack children vertically */
-  justify-content: center; /* Center content vertically */
-}
-
-.fullscreen-mode .phone-displays-container {
-  gap: 2rem; /* Adjust gap for fullscreen */
-}
-
-.fullscreen-mode .timeline-container {
-  margin-top: auto; /* Push timeline to bottom in fullscreen */
-  padding-bottom: 1rem;
-}
-
-.fullscreen-toggle {
-  transition: all 0.2s ease;
-}
-.fullscreen-toggle:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* iPhone Frame Enhancements */
