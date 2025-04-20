@@ -1,10 +1,10 @@
 <template>
-  <section class="use-cases-section py-8 w-full" :class="{'fullscreen-mode': isFullscreen}">
+  <section class="linear-section-bg-alt py-16 w-full" :class="{'fullscreen-mode': isFullscreen}">
     <div class="container mx-auto px-4 relative">
-      <!-- 放大/返回按钮 -->
+      <!-- 放大/返回按钮 - 应用类似 Solutions.vue 图标容器的样式 -->
       <button 
         @click="toggleFullscreen" 
-        class="fullscreen-toggle absolute right-4 top-2 z-10 p-1.5 rounded-full bg-white bg-opacity-80 dark:bg-gray-800 dark:bg-opacity-80 shadow-md hover:shadow-lg transition-all"
+        class="fullscreen-toggle absolute right-4 top-4 z-20 p-2 rounded-full bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all"
         aria-label="放大或返回"
       >
         <svg 
@@ -27,165 +27,179 @@
         </svg>
       </button>
 
-      <h2 class="text-3xl font-bold text-center mb-4">小区治理应用场景</h2>
-      <p class="text-lg text-center mb-6 max-w-3xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">小区治理应用场景</h2>
+      <p class="text-lg text-center text-gray-600 dark:text-gray-400 mb-10 max-w-3xl mx-auto">
         以下是地面停车位改造项目流程中四种角色的操作展示
       </p>
 
-      <!-- 角色展示区域 -->
-      <div class="roles-container grid grid-cols-4 gap-6 mb-6">
+      <!-- 角色和手机展示区域 - 新结构 -->
+      <div class="roles-and-phones-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10 mb-12">
         <div 
           v-for="role in roles" 
           :key="role.id" 
-          class="role-column flex flex-col items-center"
+          class="role-phone-group flex flex-col items-center group"
         >
-          <div class="flex items-center mb-2">
-            <div class="flex items-center">
-              <svg 
-                v-if="role.icon" 
-                class="w-6 h-6 mr-1 flex-shrink-0" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor" 
-                :class="role.id === 'committee' ? 'text-current' : `text-${role.color}-500`"
-              >
-                <path 
-                  stroke-linecap="round" 
-                  stroke-linejoin="round" 
-                  stroke-width="2" 
-                  :d="role.icon"
-                />
-              </svg>
-              <h3 class="role-name text-lg font-semibold my-0 py-0">{{ role.name }}</h3>
+          <!-- 角色卡片 -->
+          <div 
+            class="role-column linear-value-card p-4 flex flex-col items-center text-center w-full mb-6"
+            :class="{
+              'opacity-40 blur-[1px]': !isRoleActiveInCurrentStep(role.id) && currentStep !== 0, /* 在非活跃且非初始步骤时降低角色卡片可见度 */
+              'transition-opacity duration-500 ease-out': currentStep !== 0 /* 添加过渡效果 */
+            }"
+          >
+            <div class="flex items-end mb-3">
+              <!-- 使用类似 Solutions.vue 的图标容器 -->
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-100 to-white dark:from-blue-900 dark:to-blue-800 flex items-center justify-center shadow-md mr-3 transition-all duration-300 group-hover:scale-105 flex-shrink-0">
+                <svg 
+                  v-if="role.icon" 
+                  class="w-6 h-6 flex-shrink-0 text-blue-600 dark:text-blue-400" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor" 
+                >
+                  <path 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width="2" 
+                    :d="role.icon"
+                  />
+                </svg>
+              </div>
+              <h3 class="role-name text-lg font-semibold text-gray-900 dark:text-white">{{ role.name }}</h3>
             </div>
+            <p class="role-desc text-sm text-gray-600 dark:text-gray-400 mt-1">
+              {{ role.description }}
+            </p>
           </div>
-          <p class="role-desc text-xs text-center text-gray-600 dark:text-gray-300">
-            {{ role.description }}
-          </p>
-        </div>
-      </div>
 
-      <!-- 交互流程区域 -->
-      <div class="interaction-area relative min-h-[450px]">
-        <!-- 显示当前步骤的标题和描述 -->
-        <div class="step-info mb-4 text-center flex justify-center items-center flex-wrap">
-          <h3 class="text-xl font-bold my-0">{{ currentStepData.title }}</h3>
-          <p class="text-base ml-3 my-0">{{ currentStepData.description }}</p>
-        </div>
-
-        <!-- 手机界面展示区 -->
-        <div class="displays-container-wrapper relative mx-auto">
-          <div class="phone-displays-container grid grid-cols-4 gap-4 mb-8">
-            <div 
-              v-for="role in roles" 
-              :key="`phone-${role.id}`" 
-              class="phone-container flex flex-col items-center transition-all duration-500"
-              :class="{
-                'opacity-30': !isRoleActiveInCurrentStep(role.id),
-                'active-role': isRoleActiveInCurrentStep(role.id)
-              }"
-            >
-              <!-- iPhone边框 -->
-              <div class="iphone-frame relative">
-                <div class="iphone-outer w-[375px] h-[812px] rounded-[40px] bg-gray-800 p-3 shadow-xl">
-                  <div class="iphone-inner w-full h-full rounded-[36px] overflow-hidden bg-black relative">
-                    <!-- 刘海 -->
-                    <div class="notch absolute top-0 left-1/2 transform -translate-x-1/2 w-[120px] h-[30px] bg-black z-10 rounded-b-xl"></div>
-                    
-                    <!-- 屏幕内容 -->
-                    <div class="screen w-full h-full bg-white">
-                      <template v-if="getCurrentUIForRole(role.id)">
-                        <!-- 视频内容 -->
-                        <video
-                          v-if="isVideoContent(getCurrentUIForRole(role.id))"
-                          class="w-full h-full object-cover"
-                          :src="getCurrentUIForRole(role.id)"
-                          :key="getCurrentUIForRole(role.id)"
-                          controls
-                          controlsList="nodownload"
-                          preload="metadata"
-                          playsinline
-                          @play="handleVideoPlay($event)"
-                          @click.stop
-                        >
-                          您的浏览器不支持视频播放。
-                        </video>
-                        <!-- 图片内容 -->
-                        <img 
-                          v-else
-                          :src="getCurrentUIForRole(role.id)" 
-                          :alt="`${role.name}界面`"
-                          class="w-full h-full object-cover transition-opacity duration-300"
-                        >
-                      </template>
-                      <div v-else class="w-full h-full flex items-center justify-center bg-gray-100">
-                        <p class="text-gray-400">等待操作...</p>
-                      </div>
+          <!-- 手机演示 -->
+          <div 
+            class="phone-container flex flex-col items-center w-full transition-all duration-500 ease-out"
+            :class="{
+              'opacity-40 scale-95 blur-[1px]': !isRoleActiveInCurrentStep(role.id),
+              'active-role': isRoleActiveInCurrentStep(role.id)
+            }"
+          >
+            <!-- iPhone边框 - 优化样式和阴影, 使用相对宽度和最大宽度 -->
+            <div class="iphone-frame relative w-full">
+              <div class="iphone-outer w-11/12 max-w-[340px] mx-auto aspect-[9/19.5] rounded-[30px] sm:rounded-[35px] bg-gray-900 dark:bg-gray-950 p-2 sm:p-2.5 shadow-xl group-[.active-role]:shadow-2xl group-[.active-role]:shadow-blue-500/30 transition-all duration-500">
+                <div class="iphone-inner w-full h-full rounded-[26px] sm:rounded-[30px] overflow-hidden bg-black relative">
+                  <!-- 刘海 -->
+                  <div class="notch absolute top-0 left-1/2 transform -translate-x-1/2 w-[100px] h-[24px] bg-inherit z-10 rounded-b-lg"></div>
+                  
+                  <!-- 屏幕内容 -->
+                  <div class="screen w-full h-full bg-white dark:bg-gray-50">
+                    <template v-if="getCurrentUIForRole(role.id)">
+                      <!-- 视频内容 -->
+                      <video
+                        v-if="isVideoContent(getCurrentUIForRole(role.id))"
+                        :class="['w-full h-full object-cover transition-opacity duration-300', {'opacity-0': !imageLoaded[role.id]}]"                          
+                        :src="getCurrentUIForRole(role.id)"
+                        :key="getCurrentUIForRole(role.id)"
+                        controls
+                        controlsList="nodownload"
+                        preload="metadata"
+                        playsinline
+                        @play="handleVideoPlay($event)"
+                        @click.stop
+                        @loadeddata="imageLoaded[role.id] = true"
+                      >
+                        您的浏览器不支持视频播放。
+                      </video>
+                      <!-- 图片内容 -->
+                      <img 
+                        v-else
+                        :src="getCurrentUIForRole(role.id)" 
+                        :alt="`${role.name}界面`"
+                        :class="['w-full h-full object-cover transition-opacity duration-300', {'opacity-0': !imageLoaded[role.id]}]"
+                        @load="imageLoaded[role.id] = true"
+                      >
+                    </template>
+                    <div v-else class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+                      <svg class="w-10 h-10 text-gray-300 dark:text-gray-600 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
+                      </svg>
                     </div>
                   </div>
                 </div>
-                
-                <!-- 操作指示 -->
-                <div 
-                  v-if="isRoleActiveInCurrentStep(role.id)" 
-                  class="operation-hint absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-linear-blue text-white px-3 py-1 rounded-full text-xs whitespace-nowrap shadow-sm z-10 flex items-center justify-center"
-                >
-                  <svg class="w-3.5 h-3.5 mr-1 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                  <span class="inline-flex items-center">{{ getCurrentOperationForRole(role.id) }}</span>
+              </div>
+              
+              <!-- 操作指示 - 优化样式 -->
+              <div 
+                v-if="isRoleActiveInCurrentStep(role.id)" 
+                class="operation-hint absolute -bottom-7 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-3 py-1 rounded-full text-xs whitespace-nowrap shadow-md z-10 flex items-center justify-center opacity-0 animate-fadeIn group-[.active-role]:opacity-100 transition-opacity duration-300 delay-300"
+              >
+                <svg class="w-3 h-3 mr-1 inline-block animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                  <path fill-rule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 5.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span class="inline-flex items-center">{{ getCurrentOperationForRole(role.id) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 时间轴控制区 -->
+      <div class="timeline-container mt-16">
+        <div class="timeline-wrapper relative mx-auto" style="max-width: 90%; width: 100%;">
+          <div class="timeline relative py-6">
+            <!-- 时间线 - 优化样式 -->
+            <div class="timeline-line absolute h-0.5 bg-gray-200 dark:bg-gray-700 left-0 right-0 top-1/2 transform -translate-y-1/2">
+              <div 
+                class="timeline-progress absolute h-full bg-blue-500 dark:bg-blue-400 transition-all duration-300 ease-out"
+                :style="{ width: progressPercentage + '%' }"
+              ></div>
+            </div>
+            
+            <!-- 时间点 - 优化样式和交互 -->
+            <div class="timeline-nodes flex justify-between relative">
+              <div 
+                v-for="(step, index) in journey" 
+                :key="`node-${index}`"
+                :class="['timeline-node relative cursor-pointer group flex flex-col items-center']"
+                @click="goToStep(index)"
+                :style="{ width: `${100 / (journey.length -1)}%` }" 
+                :title="step.title"
+              >
+                <div class="timeline-dot-outer w-5 h-5 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 group-hover:border-blue-400 dark:group-hover:border-blue-500 transition-all duration-300">
+                  <div 
+                    :class="['timeline-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 transition-all duration-300', {'active-dot': currentStep >= index}]"
+                  ></div>
+                </div>
+                <div class="timeline-label absolute text-center -bottom-7 transform -translate-x-1/2 left-1/2 text-xs text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white whitespace-nowrap px-1 transition-colors">
+                  {{ step.time }}
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- 时间轴控制区 -->
-        <div class="timeline-container">
-          <div class="timeline-wrapper relative mx-auto" style="width: 1164px; max-width: 100%;">
-            <div class="timeline relative py-6">
-              <!-- 时间线 -->
-              <div class="timeline-line absolute h-1 bg-gray-200 left-0 right-0 top-1/2 transform -translate-y-1/2"></div>
-              
-              <!-- 时间点 -->
-              <div class="timeline-nodes flex justify-between relative">
-                <div 
-                  v-for="(step, index) in journey" 
-                  :key="`node-${index}`"
-                  :class="['timeline-node relative cursor-pointer', {'active': currentStep >= index}]"
-                  @click="goToStep(index)"
-                >
-                  <div class="timeline-dot w-3 h-3 rounded-full bg-gray-300 transition-all duration-300 hover:scale-125"></div>
-                  <div class="timeline-label absolute -bottom-6 transform -translate-x-1/2 text-xs whitespace-nowrap">
-                    {{ step.time }}
-                  </div>
-                </div>
-              </div>
-            </div>
+        
+        <!-- 控制按钮 - 统一风格 -->
+        <div class="controls flex justify-center mt-12 space-x-3">
+          <button 
+            @click="prevStep" 
+            :disabled="currentStep === 0" 
+            class="control-btn linear-button"
+            :class="{'opacity-50 cursor-not-allowed': currentStep === 0}"
+            aria-label="上一步"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+            <span>上一步</span>
+          </button>
+          <div class="step-indicator px-4 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 shadow-inner">
+            {{ currentStep + 1 }} / {{ journey.length }}
           </div>
-          
-          <!-- 控制按钮 -->
-          <div class="controls flex justify-center mt-10 space-x-4">
-            <button 
-              @click="prevStep" 
-              :disabled="currentStep === 0" 
-              class="control-btn px-3 py-0.5 text-sm rounded-md transition-all duration-300 disabled:opacity-50"
-              :class="{'opacity-50': currentStep === 0}"
-            >
-              上一步
-            </button>
-            <div class="step-indicator px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded-md text-sm">
-              {{ currentStep + 1 }} / {{ journey.length }}
-            </div>
-            <button 
-              @click="nextStep" 
-              :disabled="currentStep === journey.length - 1" 
-              class="control-btn px-3 py-0.5 text-sm rounded-md transition-all duration-300 disabled:opacity-50"
-              :class="{'opacity-50': currentStep === journey.length - 1}"
-            >
-              下一步
-            </button>
-          </div>
+          <button 
+            @click="nextStep" 
+            :disabled="currentStep === journey.length - 1" 
+            class="control-btn linear-button"
+            :class="{'opacity-50 cursor-not-allowed': currentStep === journey.length - 1}"
+            aria-label="下一步"
+          >
+            <span>下一步</span>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+          </button>
         </div>
       </div>
     </div>
@@ -193,7 +207,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, reactive } from 'vue';
 // 导入JSON数据
 import journeyData from '../../data/journeyData.json';
 
@@ -364,6 +378,16 @@ const handleVideoPlay = (event: Event) => {
   });
 };
 
+// 添加图片加载状态
+const imageLoaded = reactive<Record<string, boolean>>({});
+roles.forEach(role => imageLoaded[role.id] = false);
+
+// 计算时间轴进度
+const progressPercentage = computed(() => {
+  if (journey.value.length <= 1) return 0;
+  return (currentStep.value / (journey.value.length - 1)) * 100;
+});
+
 // 页面加载完成后初始化
 onMounted(() => {
   // 窗口大小改变时处理
@@ -385,13 +409,75 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.use-cases-section {
-  @apply relative overflow-hidden;
-  background: var(--linear-bg-primary-light, linear-gradient(135deg, #f2f0e6 0%, #eae7d9 100%));
-  transition: all 0.3s ease-in-out;
+/* 引入 Solutions.vue 中定义的卡片样式 */
+.linear-value-card {
+  @apply rounded-xl p-6 text-center relative overflow-hidden;
+  background: var(--linear-bg-secondary-light);
+  border: var(--linear-border-light-accent);
+  box-shadow: var(--linear-shadow-secondary);
+  backdrop-filter: var(--linear-blur);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
 }
 
-/* 全屏模式样式 */
+[data-theme="dark"] .linear-value-card {
+  background: var(--linear-bg-secondary-dark);
+  border: var(--linear-border-dark);
+  box-shadow: var(--linear-shadow-dark);
+}
+
+.linear-value-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--linear-shadow-primary);
+  border: var(--linear-border-light-primary);
+}
+
+[data-theme="dark"] .linear-value-card:hover {
+  box-shadow: var(--linear-shadow-dark);
+  border: var(--linear-border-dark);
+}
+
+/* 统一按钮样式 */
+.linear-button {
+  @apply inline-flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800 transition-all duration-150 ease-in-out;
+  background: linear-gradient(180deg, var(--linear-bg-secondary-light) 0%, var(--linear-bg-tertiary-light) 100%);
+  border: var(--linear-border-light-accent);
+  box-shadow: var(--linear-shadow-secondary);
+  color: var(--linear-text-primary-light);
+}
+[data-theme="dark"] .linear-button {
+  background: linear-gradient(180deg, var(--linear-bg-secondary-dark) 0%, var(--linear-bg-tertiary-dark) 100%);
+  border: var(--linear-border-dark);
+  box-shadow: var(--linear-shadow-dark);
+  color: var(--linear-text-primary-dark);
+}
+.linear-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--linear-shadow-primary);
+}
+.linear-button:active:not(:disabled) {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: var(--linear-shadow-inset);
+}
+.linear-button svg {
+ @apply mr-1.5 -ml-1;
+}
+.linear-button:last-child svg {
+ @apply ml-1.5 -mr-1;
+}
+
+/* UseCases specific styles */
+.use-cases-section {
+  /* background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); */
+  /* background: var(--linear-bg-primary-light, linear-gradient(135deg, #f2f0e6 0%, #eae7d9 100%)); */
+  background: var(--linear-bg-primary-light);
+  transition: all 0.5s ease-in-out;
+}
+[data-theme="dark"] .use-cases-section {
+  background: var(--linear-bg-primary-dark);
+}
+
 .fullscreen-mode {
   position: fixed;
   top: 0;
@@ -400,11 +486,16 @@ onUnmounted(() => {
   bottom: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 50;
-  padding: 1rem;
+  z-index: 1000; /* Ensure it's on top */
+  padding: 2rem; /* Add padding */
   margin: 0;
   border-radius: 0;
-  overflow-y: auto;
+  overflow-y: auto; /* Allow scrolling if content overflows */
+  background: var(--linear-bg-primary-light); /* Match background */
+}
+
+[data-theme="dark"] .fullscreen-mode {
+  background: var(--linear-bg-primary-dark);
 }
 
 .fullscreen-mode .container {
@@ -416,206 +507,101 @@ onUnmounted(() => {
 
 .fullscreen-mode .fullscreen-toggle {
   position: fixed;
-  top: 1rem;
-  right: 1rem;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1010; /* Ensure button is above content */
 }
 
-/* 全屏模式下的动画 */
 .fullscreen-mode .interaction-area {
   flex-grow: 1;
+  display: flex; /* Use flexbox for better vertical centering */
+  flex-direction: column; /* Stack children vertically */
+  justify-content: center; /* Center content vertically */
+}
+
+.fullscreen-mode .phone-displays-container {
+  gap: 2rem; /* Adjust gap for fullscreen */
+}
+
+.fullscreen-mode .timeline-container {
+  margin-top: auto; /* Push timeline to bottom in fullscreen */
+  padding-bottom: 1rem;
 }
 
 .fullscreen-toggle {
   transition: all 0.2s ease;
 }
-
 .fullscreen-toggle:hover {
   transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.role-column {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* 添加SVG图标和文本对齐样式 */
-.role-title-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.role-title-wrapper svg {
-  display: inline-flex;
-  vertical-align: -0.125em;
-}
-
-.role-name {
-  display: inline-flex;
-  align-items: center;
-}
-
-.phone-container {
-  perspective: 1000px;
-}
-
+/* iPhone Frame Enhancements */
 .iphone-frame {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
-  position: relative;
-  padding-bottom: 1.5rem;
+  padding-bottom: 1.8rem; /* Space for the hint */
+}
+.iphone-outer {
+  transform: rotateX(5deg) rotateY(-3deg);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.group:hover .iphone-outer {
+   transform: rotateX(2deg) rotateY(-1deg) scale(1.01);
+}
+.group.active-role .iphone-outer {
+  transform: rotateX(0deg) rotateY(0deg) scale(1.03);
+  box-shadow: 0 15px 35px -10px rgba(59, 130, 246, 0.3), 0 8px 15px -8px rgba(59, 130, 246, 0.2);
 }
 
-/* 全屏模式下额外的样式调整 */
-.fullscreen-mode .phone-displays-container {
-  margin-bottom: 2rem;
-}
-
-.fullscreen-mode .timeline-container {
-  margin-top: 0;
-}
-
-/* 使用更兼容的选择器 */
-.phone-container.active-role .iphone-outer {
-  box-shadow: 0 10px 25px -5px rgba(0, 120, 229, 0.3), 0 8px 10px -6px rgba(0, 120, 229, 0.2);
-}
-
+/* Timeline Enhancements */
 .timeline-node {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  transition: transform 0.2s ease;
+}
+.timeline-node:hover {
+  transform: scale(1.1);
+}
+.timeline-dot-outer {
   position: relative;
+  z-index: 1;
+}
+.timeline-dot.active-dot {
+  background-color: var(--linear-accent-blue, rgba(59, 130, 246, 1));
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+  transform: scale(1.3);
+}
+[data-theme="dark"] .timeline-dot.active-dot {
+   background-color: var(--linear-accent-blue-dark, rgba(96, 165, 250, 1));
+   box-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
 }
 
-.timeline-dot {
-  margin: 0 auto;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 0 rgba(0, 120, 229, 0);
-}
-
-.timeline-node.active .timeline-dot {
-  background-color: var(--linear-accent-blue, rgba(0, 120, 229, 0.85));
-  box-shadow: 0 0 10px rgba(0, 120, 229, 0.5);
-  transform: scale(1.2);
-}
-
-.timeline-label {
-  left: 50%;
-}
-
-.control-btn {
-  background: var(--linear-bg-secondary-light, linear-gradient(135deg, #ffffff 0%, #f9f8f3 100%));
-  border: var(--linear-border-primary, 1px solid rgba(255, 255, 255, 0.5));
-}
-
-.control-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: var(--linear-shadow-primary, 0 4px 16px rgba(0, 0, 0, 0.06));
-}
-
-.control-btn:active:not(:disabled) {
-  transform: scale(0.98);
-}
-
-/* 交互箭头的动画 */
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.bg-linear-green {
-  background-color: var(--linear-accent-blue, rgba(0, 120, 229, 0.85));
-}
-
-.bg-linear-blue {
-  background-color: var(--linear-accent-blue, rgba(0, 120, 229, 0.85));
-}
-
-/* 手机容器和时间线容器 */
-.displays-container-wrapper,
-.timeline-wrapper {
-  width: 100%;
-  margin: 0 auto;
-}
-
-/* 添加适当的响应式样式 */
-@media (max-width: 1280px) {
-  .phone-displays-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-  
-  /* 全屏模式下保持原有列数 */
-  .fullscreen-mode .phone-displays-container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .phone-displays-container {
-    grid-template-columns: 1fr;
-  }
-  
-  .roles-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  /* 全屏模式下调整响应式布局 */
-  .fullscreen-mode .phone-displays-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  /* 全屏模式下在小屏幕上也调整为单列 */
-  .fullscreen-mode .phone-displays-container {
-    grid-template-columns: 1fr;
-  }
-}
-
-.operation-hint {
-  animation: fadeIn 0.5s ease-out;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
+/* Operation Hint Animation */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translate(-50%, 5px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
+  from { opacity: 0; transform: translate(-50%, 10px) scale(0.9); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
 }
 
-.step-info h3,
-.step-info p {
-  line-height: 1.5;
-  display: inline-flex;
-  align-items: center;
+/* General Adjustments */
+.roles-and-phones-container {
+  transition: all 0.5s ease-out; /* Smooth transition for layout changes */
 }
 
-/* 视频控件样式优化 */
+/* Ensure video controls are visible on hover */
 .screen video {
-  @apply focus:outline-none cursor-pointer;
-}
-
-.screen video::-webkit-media-controls {
-  @apply opacity-0 transition-opacity duration-300;
-}
-
-.screen video:hover::-webkit-media-controls {
-  @apply opacity-100;
-}
-
-.screen video::-webkit-media-controls-panel {
-  @apply bg-black bg-opacity-40;
-}
-
-.screen video::-webkit-media-controls-play-button {
-  @apply text-white;
-}
-
-.screen video::-webkit-media-controls-timeline {
   @apply cursor-pointer;
 }
-
-/* 在全屏模式下的视频控件样式 */
-.fullscreen-mode .screen video::-webkit-media-controls-panel {
-  @apply bg-opacity-60;
+.screen video::-webkit-media-controls {
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
+.screen:hover video::-webkit-media-controls {
+  opacity: 1;
+}
+.screen video::-webkit-media-controls-panel {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+/* ... (rest of the styles) ... */
+
 </style> 

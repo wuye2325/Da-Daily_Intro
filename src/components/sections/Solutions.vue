@@ -12,51 +12,102 @@
 
       <!-- 产品定位 -->
       <div class="mb-16 text-center">
-        <h3 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">产品定位</h3>
-        <div class="linear-highlight-card max-w-3xl mx-auto">
-          <p class="text-xl font-medium mb-4">业委会驱动社区数字化升级</p>
-          <p class="text-lg italic">"让数据跑腿，让业主参与，让管理透明"</p>
+        <h3 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-white flex items-center justify-center">
+          <div class="mr-2 bg-blue-100 dark:bg-blue-900 p-2 rounded-lg">
+            <BoltIcon class="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          </div>
+          产品定位
+        </h3>
+        <div class="linear-highlight-card max-w-3xl mx-auto linear-flow linear-glow">
+          <div class="absolute top-4 left-4 text-white/30">
+            <SparklesIcon class="w-6 h-6" />
+          </div>
+          <div class="absolute bottom-4 right-4 text-white/30">
+            <SparklesIcon class="w-6 h-6" />
+          </div>
+          <p class="text-xl font-medium mb-4 !text-white flex items-center justify-center">
+            <CpuChipIcon class="w-6 h-6 mr-2" />
+            业委会驱动社区数字化升级
+          </p>
+          <div class="w-24 h-0.5 mx-auto mb-4 bg-white/50"></div>
+          <p class="text-lg italic !text-white flex items-center justify-center">
+            <span class="text-2xl mr-2">"</span>
+            让数据跑腿，让业主参与，让管理透明
+            <span class="text-2xl ml-2">"</span>
+          </p>
         </div>
       </div>
 
       <!-- 核心价值 -->
       <div class="mb-16">
-        <h3 class="text-2xl font-semibold mb-8 text-center text-gray-800 dark:text-white">核心价值</h3>
+        <h3 class="text-2xl font-semibold mb-8 text-center text-gray-800 dark:text-white flex items-center justify-center">
+          <div class="mr-2 bg-blue-100 dark:bg-blue-900 p-2 rounded-lg">
+            <HeartIcon class="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          </div>
+          核心价值
+        </h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div v-for="(value, index) in coreValues" :key="index"
-            class="linear-value-card">
-            <component :is="value.icon" class="w-12 h-12 mx-auto mb-4 text-blue-600 dark:text-blue-400"/>
-            <h4 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">{{ value.target }}</h4>
-            <p class="text-gray-600 dark:text-gray-300">{{ value.description }}</p>
+            class="linear-value-card group">
+            <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl opacity-0 group-hover:opacity-20 transition duration-300"></div>
+            <div class="relative p-4">
+              <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-white dark:from-blue-900 dark:to-blue-800 flex items-center justify-center shadow-lg">
+                <component :is="value.icon" class="w-8 h-8 text-blue-600 dark:text-blue-400"/>
+              </div>
+              <h4 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">{{ value.target }}</h4>
+              <div class="w-12 h-0.5 bg-blue-200 dark:bg-blue-800 mx-auto mb-3 group-hover:w-24 transition-all duration-300"></div>
+              <p class="text-gray-600 dark:text-gray-300">{{ value.description }}</p>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- 产品优势 -->
       <div>
-        <h3 class="text-2xl font-semibold mb-8 text-center text-gray-800 dark:text-white">
+        <h3 class="text-2xl font-semibold mb-8 text-center text-gray-800 dark:text-white flex items-center justify-center">
+          <div class="mr-2 bg-blue-100 dark:bg-blue-900 p-2 rounded-lg">
+            <ArrowTrendingUpIcon class="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          </div>
           从「事务繁琐」到「数字中枢」的三大升级
         </h3>
         <div class="space-y-6">
           <div v-for="(advantage, index) in productAdvantages" :key="index"
-            class="linear-advantage-card">
-            <div class="flex flex-col md:flex-row md:items-center gap-6">
-              <div class="md:w-1/3">
-                <h4 class="text-lg font-semibold text-red-600 dark:text-red-400 mb-2">
-                  {{ advantage.pain }}
-                </h4>
-                <div class="linear-divider"></div>
-                <h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400">
-                  {{ advantage.solution }}
-                </h4>
+            class="linear-advantage-card group hover:scale-[1.01] transition-all duration-300">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-50/30 to-transparent rounded-bl-[40px] dark:from-blue-900/10 dark:to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-blue-50/30 to-transparent rounded-tr-[30px] dark:from-blue-900/10 dark:to-transparent pointer-events-none"></div>
+            <div class="flex flex-col md:flex-row md:items-center gap-6 z-10 relative">
+              <div class="md:w-1/3 relative">
+                <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-red-500/80 to-red-500/20"></div>
+                <div class="pl-4">
+                  <h4 class="text-lg font-semibold text-red-600 dark:text-red-400 mb-2 flex items-center">
+                    <div class="flex items-center justify-center w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 mr-3 shadow-sm">
+                      <ExclamationTriangleIcon class="w-5 h-5 text-red-500 dark:text-red-400" />
+                    </div>
+                    {{ advantage.pain }}
+                  </h4>
+                  <div class="linear-divider group-hover:w-full transition-all duration-500"></div>
+                  <h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 flex items-center">
+                    <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 mr-3 shadow-sm group-hover:shadow-md transition-all">
+                      <CheckCircleIcon class="w-5 h-5 text-blue-500 dark:text-blue-400" />
+                    </div>
+                    {{ advantage.solution }}
+                  </h4>
+                </div>
               </div>
-              <div class="md:w-2/3">
-                <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2">
-                  <li v-for="(feature, fIndex) in advantage.features" :key="fIndex">
-                    {{ feature }}
+              <div class="md:w-2/3 linear-feature-list md:pl-4 md:border-l md:border-gray-100 dark:md:border-gray-800">
+                <ul class="space-y-3 text-gray-600 dark:text-gray-300">
+                  <li v-for="(feature, fIndex) in advantage.features" :key="fIndex" 
+                    class="flex items-start linear-feature-item group/item p-2 rounded-lg hover:bg-blue-50/50 dark:hover:bg-blue-900/10">
+                    <div class="mt-0.5 mr-3 p-1.5 bg-blue-100 dark:bg-blue-900/30 rounded-full shadow-sm group-hover/item:shadow-md group-hover/item:bg-blue-200 dark:group-hover/item:bg-blue-800/30 transition-all">
+                      <ChevronRightIcon class="w-3 h-3 text-blue-600 dark:text-blue-400 group-hover/item:text-blue-700 dark:group-hover/item:text-blue-300" />
+                    </div>
+                    <span class="group-hover/item:text-blue-700 dark:group-hover/item:text-blue-300 transition-colors">{{ feature }}</span>
                   </li>
                 </ul>
               </div>
+            </div>
+            <div class="absolute -bottom-1 -right-1 w-12 h-12 opacity-10 group-hover:opacity-20 transition-opacity">
+              <component :is="getAdvantageIcon(index)" class="w-full h-full text-blue-600 dark:text-blue-400" />
             </div>
           </div>
         </div>
@@ -66,7 +117,7 @@
 </template>
 
 <script setup lang="ts">
-import { UserGroupIcon, ShieldCheckIcon, CogIcon } from '@heroicons/vue/24/outline'
+import { UserGroupIcon, ShieldCheckIcon, CogIcon, BoltIcon, SparklesIcon, CpuChipIcon, ArrowTrendingUpIcon, ExclamationTriangleIcon, CheckCircleIcon, ChevronRightIcon, HeartIcon, DocumentTextIcon, UsersIcon, ArchiveBoxIcon } from '@heroicons/vue/24/outline'
 
 const coreValues = [
   {
@@ -114,6 +165,16 @@ const productAdvantages = [
     ]
   }
 ]
+
+// 根据索引返回不同的图标组件
+const getAdvantageIcon = (index: number) => {
+  const icons = [
+    DocumentTextIcon,   // 文档图标 - 对应全流程引擎自动化
+    UsersIcon,          // 用户组图标 - 对应智能触达与决策工具
+    ArchiveBoxIcon      // 档案盒图标 - 对应动态公开与档案管理
+  ];
+  return icons[index] || DocumentTextIcon;
+}
 </script>
 
 <style scoped>
@@ -166,22 +227,6 @@ const productAdvantages = [
   z-index: 1;
 }
 
-.linear-highlight-card p {
-  color: var(--linear-text-primary-light);
-}
-
-[data-theme="dark"] .linear-highlight-card p {
-  color: var(--linear-text-primary-dark);
-}
-
-.linear-highlight-card p.text-lg {
-  color: var(--linear-text-secondary-light);
-}
-
-[data-theme="dark"] .linear-highlight-card p.text-lg {
-  color: var(--linear-text-secondary-dark);
-}
-
 /* 核心价值卡片 */
 .linear-value-card {
   @apply rounded-xl p-6 text-center relative overflow-hidden;
@@ -219,6 +264,8 @@ const productAdvantages = [
   box-shadow: var(--linear-shadow-primary);
   backdrop-filter: var(--linear-blur);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: perspective(1000px) translateZ(0);
+  will-change: transform, box-shadow;
 }
 
 [data-theme="dark"] .linear-advantage-card {
@@ -228,7 +275,7 @@ const productAdvantages = [
 }
 
 .linear-advantage-card:hover {
-  transform: translateY(-2px) rotate(0.5deg);
+  transform: perspective(1000px) translateY(-2px) translateZ(10px) rotate(0.25deg);
   box-shadow: var(--linear-shadow-primary), var(--linear-shadow-secondary);
   border: var(--linear-border-light-primary);
 }
@@ -238,16 +285,69 @@ const productAdvantages = [
   border: var(--linear-border-dark);
 }
 
+/* 添加卡片内边缘发光效果 */
+.linear-advantage-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, 
+    rgba(255, 255, 255, 0), 
+    rgba(255, 255, 255, 0.5), 
+    rgba(255, 255, 255, 0));
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.linear-advantage-card:hover::before {
+  opacity: 1;
+}
+
+[data-theme="dark"] .linear-advantage-card::before {
+  background: linear-gradient(to right, 
+    rgba(255, 255, 255, 0), 
+    rgba(255, 255, 255, 0.15), 
+    rgba(255, 255, 255, 0));
+}
+
 /* 装饰性分隔线 */
 .linear-divider {
   height: 0.5px;
   width: 48px;
   margin-bottom: 8px;
   background: linear-gradient(to right, var(--linear-accent-blue), rgba(37, 99, 235, 0.2));
+  transition: all 0.5s ease;
 }
 
 [data-theme="dark"] .linear-divider {
   background: linear-gradient(to right, rgba(96, 165, 250, 0.8), rgba(96, 165, 250, 0.2));
+}
+
+/* 特性列表样式增强 */
+.linear-feature-list {
+  position: relative;
+}
+
+.linear-feature-list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(37, 99, 235, 0.05), rgba(37, 99, 235, 0.01));
+  transition: width 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+.linear-advantage-card:hover .linear-feature-list::before {
+  width: 100%;
 }
 
 /* 文本颜色 */
@@ -313,5 +413,49 @@ const productAdvantages = [
 
 [data-theme="dark"] .linear-advantage-card .text-blue-600 {
   color: var(--linear-text-accent-dark);
+}
+
+/* 新增样式 - 特性列表项动画 */
+.linear-feature-item {
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.linear-feature-item:hover {
+  transform: translateX(4px);
+}
+
+/* 新增样式 - 标题图标容器 */
+.bg-blue-100 {
+  background-color: rgba(219, 234, 254, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+[data-theme="dark"] .bg-blue-900 {
+  background-color: rgba(30, 58, 138, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+/* 图标容器样式增强 */
+.linear-feature-item .p-1\.5 {
+  position: relative;
+  overflow: hidden;
+}
+
+.linear-feature-item .p-1\.5::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(37, 99, 235, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.linear-feature-item:hover .p-1\.5::after {
+  opacity: 1;
 }
 </style>

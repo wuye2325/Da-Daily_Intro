@@ -10,123 +10,96 @@
         </p>
       </div>
 
-      <div class="space-y-24">
+      <div class="space-y-16">
         <!-- 业委会工作流程管理 -->
-        <div class="linear-feature-card">
-          <div class="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <div class="flex items-center mb-6">
-                <div class="linear-icon-wrapper">
-                  <ClipboardDocumentListIcon class="w-8 h-8 text-blue-600 dark:text-blue-400" />
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white">业委会工作流程管理</h3>
+        <LinearCard type="feature" withCornerDecoration withGlow>
+          <div class="p-2">
+            <div class="flex flex-col md:flex-row md:items-center mb-6"> 
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-100 to-white dark:from-blue-900 dark:to-blue-800 flex items-center justify-center shadow-lg mr-4 flex-shrink-0 mb-4 md:mb-0"> 
+                <ClipboardDocumentListIcon class="w-8 h-8 text-blue-600 dark:text-blue-400" />
               </div>
-              <p class="text-gray-600 dark:text-gray-400 mb-6">
-                解决痛点：长效管理机制缺失，合法合规程序有瑕疵
-              </p>
-              <div class="space-y-8">
-                <div v-for="(feature, index) in workflowFeatures" :key="index" 
-                  class="linear-sub-feature">
-                  <h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-3">
-                    {{ feature.title }}
-                  </h4>
-                  <ul class="space-y-2">
-                    <li v-for="(item, idx) in feature.items" :key="idx" 
-                      class="flex items-start">
-                      <div class="linear-check-icon">
-                        <CheckCircleIcon class="w-5 h-5 text-green-500" />
-                      </div>
-                      <span class="text-gray-600 dark:text-gray-300">{{ item }}</span>
-                    </li>
-                  </ul>
-                </div>
+              <div class="flex items-end flex-wrap"> 
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mr-3">业委会工作流程管理</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                  解决痛点：长效管理机制缺失，合法合规程序有瑕疵
+                </p>
               </div>
             </div>
-            <div class="relative">
-              <div class="linear-image-container">
-                <img src="@/assets/images/workflow.svg" alt="工作流程管理" class="object-cover" />
+            <div class="grid md:grid-cols-3 gap-6">
+              <div v-for="(feature, index) in workflowFeatures" :key="index" 
+                class="linear-sub-feature">
+                <h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-3">
+                  {{ feature.title }}
+                </h4>
+                <LinearFeatureList 
+                  :items="feature.items"
+                  :icon="CheckCircleIcon"
+                  iconColor="green"
+                />
               </div>
             </div>
           </div>
-        </div>
+        </LinearCard>
 
         <!-- 小区治理知识社区 -->
-        <div class="linear-feature-card">
-          <div class="grid md:grid-cols-2 gap-8 items-center">
-            <div class="order-2 md:order-1 relative">
-              <div class="linear-image-container">
-                <img src="@/assets/images/knowledge.svg" alt="知识社区" class="object-cover" />
+        <LinearCard type="feature" withCornerDecoration withGlow>
+          <div class="p-2">
+            <div class="flex flex-col md:flex-row md:items-center mb-6">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-100 to-white dark:from-blue-900 dark:to-blue-800 flex items-center justify-center shadow-lg mr-4 flex-shrink-0 mb-4 md:mb-0">
+                <AcademicCapIcon class="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              </div>
+              <div class="flex items-end flex-wrap">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mr-3">小区治理知识社区</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                  汇集其他小区的成功经验，提供专业的解决方案
+                </p>
               </div>
             </div>
-            <div class="order-1 md:order-2">
-              <div class="flex items-center mb-6">
-                <div class="linear-icon-wrapper">
-                  <AcademicCapIcon class="w-8 h-8 text-blue-600 dark:text-blue-400" />
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white">小区治理知识社区</h3>
-              </div>
-              <p class="text-gray-600 dark:text-gray-400 mb-6">
-                汇集其他小区的成功经验，提供专业的解决方案
-              </p>
-              <div class="space-y-8">
-                <div v-for="(feature, index) in knowledgeFeatures" :key="index"
-                  class="linear-sub-feature">
-                  <h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-3">
-                    {{ feature.title }}
-                  </h4>
-                  <ul class="space-y-2">
-                    <li v-for="(item, idx) in feature.items" :key="idx"
-                      class="flex items-start">
-                      <div class="linear-check-icon">
-                        <CheckCircleIcon class="w-5 h-5 text-green-500" />
-                      </div>
-                      <span class="text-gray-600 dark:text-gray-300">{{ item }}</span>
-                    </li>
-                  </ul>
-                </div>
+            <div class="grid md:grid-cols-3 gap-6">
+              <div v-for="(feature, index) in knowledgeFeatures" :key="index"
+                class="linear-sub-feature">
+                <h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-3">
+                  {{ feature.title }}
+                </h4>
+                <LinearFeatureList 
+                  :items="feature.items"
+                  :icon="CheckCircleIcon"
+                  iconColor="green"
+                />
               </div>
             </div>
           </div>
-        </div>
+        </LinearCard>
 
         <!-- 邻里互动社区 -->
-        <div class="linear-feature-card">
-          <div class="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <div class="flex items-center mb-6">
-                <div class="linear-icon-wrapper">
-                  <UsersIcon class="w-8 h-8 text-blue-600 dark:text-blue-400" />
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white">邻里互动社区</h3>
+        <LinearCard type="feature" withCornerDecoration withGlow>
+          <div class="p-2">
+            <div class="flex flex-col md:flex-row md:items-center mb-6">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-100 to-white dark:from-blue-900 dark:to-blue-800 flex items-center justify-center shadow-lg mr-4 flex-shrink-0 mb-4 md:mb-0">
+                <UsersIcon class="w-8 h-8 text-blue-600 dark:text-blue-400" />
               </div>
-              <p class="text-gray-600 dark:text-gray-400 mb-6">
-                构建透明、高效的社区互动平台
-              </p>
-              <div class="space-y-8">
-                <div v-for="(feature, index) in communityFeatures" :key="index"
-                  class="linear-sub-feature">
-                  <h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-3">
-                    {{ feature.title }}
-                  </h4>
-                  <ul class="space-y-2">
-                    <li v-for="(item, idx) in feature.items" :key="idx"
-                      class="flex items-start">
-                      <div class="linear-check-icon">
-                        <CheckCircleIcon class="w-5 h-5 text-green-500" />
-                      </div>
-                      <span class="text-gray-600 dark:text-gray-300">{{ item }}</span>
-                    </li>
-                  </ul>
-                </div>
+              <div class="flex items-end flex-wrap">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mr-3">邻里互动社区</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                  构建透明、高效的社区互动平台
+                </p>
               </div>
             </div>
-            <div class="relative">
-              <div class="linear-image-container">
-                <img src="@/assets/images/community.svg" alt="邻里互动" class="object-cover" />
+            <div class="grid md:grid-cols-2 gap-6">
+              <div v-for="(feature, index) in communityFeatures" :key="index"
+                class="linear-sub-feature">
+                <h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-3">
+                  {{ feature.title }}
+                </h4>
+                <LinearFeatureList 
+                  :items="feature.items"
+                  :icon="CheckCircleIcon"
+                  iconColor="green"
+                />
               </div>
             </div>
           </div>
-        </div>
+        </LinearCard>
       </div>
     </div>
   </div>
@@ -137,8 +110,12 @@ import {
   ClipboardDocumentListIcon, 
   AcademicCapIcon, 
   UsersIcon,
-  CheckCircleIcon 
+  CheckCircleIcon
 } from '@heroicons/vue/24/outline'
+import { 
+  LinearCard, 
+  LinearFeatureList 
+} from '@/components/common';
 
 const workflowFeatures = [
   {
@@ -222,99 +199,24 @@ const communityFeatures = [
   background: var(--linear-bg-primary-dark);
 }
 
-/* 特性卡片 - 增强毛玻璃效果 */
-.linear-feature-card {
-  @apply rounded-2xl p-8 relative overflow-hidden;
-  background: var(--linear-bg-secondary-light);
-  border: var(--linear-border-light-accent);
-  box-shadow: var(--linear-shadow-primary);
-  backdrop-filter: var(--linear-blur);
-  transform: translateZ(0);
-  will-change: transform;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-[data-theme="dark"] .linear-feature-card {
-  background: var(--linear-bg-secondary-dark);
-  border: var(--linear-border-dark);
-  box-shadow: var(--linear-shadow-dark);
-}
-
-.linear-feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(to right, 
-    rgba(255, 255, 255, 0.5), 
-    rgba(255, 255, 255, 0.8), 
-    rgba(255, 255, 255, 0.5));
-  z-index: 1;
-}
-
-[data-theme="dark"] .linear-feature-card::before {
-  background: linear-gradient(to right, 
-    rgba(255, 255, 255, 0.05), 
-    rgba(255, 255, 255, 0.1), 
-    rgba(255, 255, 255, 0.05));
-}
-
-/* 添加卡片悬停效果 */
-.linear-feature-card:hover {
-  transform: translateY(-2px) rotate(0.5deg);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
-  border: var(--linear-border-light-primary);
-}
-
-[data-theme="dark"] .linear-feature-card:hover {
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-/* 添加流光效果 */
-.linear-feature-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.15) 100%);
-  background-size: 200% 200%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 0;
-  animation: gradientFlow 5s ease infinite;
-  pointer-events: none;
-}
-
-.linear-feature-card:hover::after {
-  opacity: 1;
-}
-
-[data-theme="dark"] .linear-feature-card::after {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.06) 100%);
-}
-
-@keyframes gradientFlow {
-  0% { background-position: 0% 50% }
-  50% { background-position: 100% 50% }
-  100% { background-position: 0% 50% }
-}
-
 /* 子特性 - 优化悬停效果 */
 .linear-sub-feature {
-  @apply relative transition-all duration-300 transform p-3 rounded-xl;
+  @apply relative transition-all duration-300 transform p-4 rounded-xl;
   border: 1px solid transparent;
+  background: var(--linear-glass-light);
+  border: var(--linear-border-light-secondary);
 }
 
 .linear-sub-feature:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.01);
   background: var(--linear-glass-light);
-  border: var(--linear-border-light-secondary);
+  border: var(--linear-border-light-primary);
   box-shadow: var(--linear-shadow-secondary);
+}
+
+[data-theme="dark"] .linear-sub-feature {
+  background: var(--linear-glass-dark);
+  border: var(--linear-border-dark);
 }
 
 [data-theme="dark"] .linear-sub-feature:hover {
@@ -323,83 +225,8 @@ const communityFeatures = [
   box-shadow: var(--linear-shadow-dark);
 }
 
-/* 图标容器 - 增强光影效果 */
-.linear-icon-wrapper {
-  @apply flex items-center justify-center rounded-full mr-3;
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, var(--linear-accent-blue) 0%, rgba(37, 99, 235, 0.2) 100%);
-  box-shadow: var(--linear-shadow-inner), var(--linear-shadow-secondary);
-  border: var(--linear-border-light-secondary);
-  backdrop-filter: var(--linear-blur);
-  transition: all 0.3s ease;
-}
-
-[data-theme="dark"] .linear-icon-wrapper {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.3) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), var(--linear-shadow-dark);
-  border: var(--linear-border-dark);
-}
-
-/* 复选图标 - 优化阴影效果 */
-.linear-check-icon {
-  @apply flex-shrink-0 mt-0.5 mr-2;
-  width: 20px;
-  height: 20px;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-  transition: all 0.2s ease;
-}
-
-.linear-sub-feature:hover .linear-check-icon {
-  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
-  transform: scale(1.05);
-}
-
-[data-theme="dark"] .linear-check-icon {
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
-}
-
-[data-theme="dark"] .linear-sub-feature:hover .linear-check-icon {
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
-}
-
-/* 图片容器 - 增强毛玻璃效果 */
-.linear-image-container {
-  @apply rounded-xl overflow-hidden relative;
-  background: var(--linear-bg-tertiary-light);
-  border: var(--linear-border-light-primary);
-  box-shadow: var(--linear-shadow-primary);
-  backdrop-filter: var(--linear-blur);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  padding-top: 75%;
-}
-
-[data-theme="dark"] .linear-image-container {
-  background: var(--linear-bg-secondary-dark);
-  border: var(--linear-border-dark);
-  box-shadow: var(--linear-shadow-dark);
-}
-
-.linear-image-container:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: var(--linear-shadow-primary), var(--linear-shadow-secondary);
-}
-
-[data-theme="dark"] .linear-image-container:hover {
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
-}
-
-.linear-image-container img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.linear-image-container::before {
+/* 添加内边缘发光效果 */
+.linear-sub-feature::before {
   content: '';
   position: absolute;
   top: 0;
@@ -407,13 +234,22 @@ const communityFeatures = [
   right: 0;
   height: 1px;
   background: linear-gradient(to right, 
-    rgba(255, 255, 255, 0.3), 
-    rgba(255, 255, 255, 0.8), 
-    rgba(255, 255, 255, 0.3));
-  z-index: 2;
+    rgba(255, 255, 255, 0), 
+    rgba(255, 255, 255, 0.5), 
+    rgba(255, 255, 255, 0));
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.linear-image-container:hover img {
-  transform: scale(1.03);
+.linear-sub-feature:hover::before {
+  opacity: 1;
+}
+
+[data-theme="dark"] .linear-sub-feature::before {
+  background: linear-gradient(to right, 
+    rgba(255, 255, 255, 0), 
+    rgba(255, 255, 255, 0.15), 
+    rgba(255, 255, 255, 0));
 }
 </style>
