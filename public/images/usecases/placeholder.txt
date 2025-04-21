@@ -33,12 +33,12 @@
 
 ```
 # 图片
-/src/assets/images/usecases/step1_resident.png
-/src/assets/images/usecases/step2_committee.png
+/images/usecases/step1_resident.png
+/images/usecases/step2_committee.png
 
 # 视频
-/src/assets/images/usecases/step1_resident.mp4
-/src/assets/images/usecases/step2_demo.mp4
+/images/usecases/step1_resident.mp4
+/images/usecases/step2_demo.mp4
 ```
 
 ## 内容建议

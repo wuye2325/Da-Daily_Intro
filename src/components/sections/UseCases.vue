@@ -260,16 +260,8 @@ const isRoleActiveInCurrentStep = (roleId: string): boolean => {
 // 获取当前步骤角色的UI截图
 const getCurrentUIForRole = (roleId: string): string => {
   if (currentStepData.value.uiScreenshots && roleId in currentStepData.value.uiScreenshots) {
-    const path = currentStepData.value.uiScreenshots[roleId];
-    // 如果路径以 "../" 开头，转换为正确的路径
-    if (path.startsWith('../')) {
-      return path.replace('../', '/src/');
-    }
-    // 如果路径不是以 "/" 开头，添加 "/src/"
-    if (!path.startsWith('/')) {
-      return `/src/${path}`;
-    }
-    return path;
+    // 直接返回 JSON 中的路径，因为它已经是相对于 public 根目录的正确路径
+    return currentStepData.value.uiScreenshots[roleId];
   }
   return '';
 };
