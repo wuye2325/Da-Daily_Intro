@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
+defineProps({
   // 图标组件
   icon: {
     type: Object,

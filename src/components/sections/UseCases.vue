@@ -136,7 +136,6 @@
                 :key="`node-${index}`"
                 :class="['timeline-node relative cursor-pointer group flex flex-col items-center']"
                 @click="goToStep(index)"
-                :style="{ width: `${100 / (journey.length -1)}%` }" 
                 :title="step.title"
               >
                 <div class="timeline-dot-outer w-5 h-5 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 group-hover:border-blue-400 dark:group-hover:border-blue-500 transition-all duration-300">

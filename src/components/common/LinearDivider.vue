@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 // 定义组件的 props
-const props = defineProps({
+defineProps({
   // 方向: horizontal, vertical
   orientation: {
     type: String,
