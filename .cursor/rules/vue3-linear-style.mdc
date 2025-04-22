@@ -1,0 +1,144 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 角色：前端设计师与开发者
+
+## 任务概述
+基于 Linear App 的现代设计风格，设计并实现一套具有高级感的 Vue 3 用户界面，支持深色/浅色模式切换，确保在不同环境下都能提供优秀的视觉体验和流畅的交互感受，提升产品整体质感。
+
+## 内容规划
+1. **背景设计**：包含主背景、次要背景、三级背景的设计，以及磨砂玻璃效果的实现。
+2. **描边与光效**：采用纤细描边设计，搭配点缀色系应用于按钮、标签、图标等元素。
+3. **卡片设计**：实现卡片的悬浮效果和边缘光效。
+4. **动画效果**：添加微动效果和加载动画，增强用户交互体验。
+5. **组件示例**：提供卡片组件和按钮组件的代码示例。
+
+## 设计风格
+### 深色模式
+1. **背景设计**
+    - 主背景：使用 `linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)`，营造深邃的视觉感受。
+    - 次要背景：采用 `linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%)`，与主背景形成层次感。
+    - 磨砂玻璃效果：背景为 `rgba(255, 255, 255, 0.05)`，边框为 `1px solid rgba(255, 255, 255, 0.1)`，配合 `backdrop-filter: blur(15px)` 增加模糊效果，凸显高级感。
+2. **描边与光效**
+    - 纤细描边：边框宽度为 `0.5px` 或 `1px`，颜色为 `rgba(255, 255, 255, 0.1)`，增强界面的精致感。
+    - 点缀色系：如蓝色 `#0078E5`，用于突出关键元素。
+3. **卡片设计**
+    - 悬浮效果：通用 `transform: translateY(-2px)`，并添加 `box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2)`，使卡片具有立体感。
+    - 边缘光效：使用冷色调发光，营造神秘氛围。
+
+### 浅色模式
+1. **背景设计**
+    - 主背景：更新为浅米色调 `linear-gradient(135deg, #f2f0e6 0%, #eae7d9 100%)`，给人温馨舒适的感觉。
+    - 次要背景：采用更柔和的白色 `linear-gradient(135deg, #ffffff 0%, #f9f8f3 100%)`，增强层次感。
+    - 三级背景：使用 `linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%)`，进一步丰富背景层次。
+    - 磨砂玻璃效果：背景为 `rgba(255, 255, 255, 0.65)`，降低透明度增强毛玻璃感，边框为 `1px solid rgba(255, 255, 255, 0.5)`，增强通透感，配合 `backdrop-filter: blur(15px)` 营造出柔和的视觉效果。
+2. **描边与光效**
+    - 纤细描边：一级描边为 `rgba(255, 255, 255, 0.8)`，二级描边为 `rgba(0, 0, 0, 0.03)`，强调描边为 `rgba(0, 0, 0, 0.08)`，降低不透明度，使界面更加柔和。
+    - 点缀色系：添加浅绿色 `rgba(142, 213, 155, 0.85)`，为界面增添清新感。
+3. **卡片设计**
+    - 悬浮效果：通用 `transform: translateY(-2px)`，主阴影为 `box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08)`，次阴影为 `box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04)`，内阴影为 `box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8)`，使卡片具有轻盈的感觉。
+    - 边缘光效：主光效为 `rgba(255, 255, 255, 0.8)`，次光效为 `rgba(255, 255, 255, 0.6)`，使用 `::after` 伪元素 + `box-shadow` 实现，增强卡片的立体感。
+
+## 技术要求
+1. **CSS 变量**：使用 CSS 变量管理不同模式下的颜色、阴影等样式，提高代码的可维护性。
+```css
+:root {
+  /* 深色模式 */
+  --linear-bg-primary-dark: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  --linear-bg-secondary-dark: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
+  --linear-border-dark: 1px solid rgba(255, 255, 255, 0.1);
+  
+  /* 浅色模式 - 更新色调 */
+  --linear-bg-primary-light: linear-gradient(135deg, #f2f0e6 0%, #eae7d9 100%);
+  --linear-bg-secondary-light: linear-gradient(135deg, #ffffff 0%, #f9f8f3 100%);
+  --linear-bg-tertiary-light: linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%);
+  --linear-border-light-primary: 1px solid rgba(255, 255, 255, 0.5);
+  --linear-border-light-secondary: 1px solid rgba(255, 255, 255, 0.3);
+  --linear-border-light-accent: 1px solid rgba(0, 0, 0, 0.08);
+  
+  /* 点缀色系 */
+  --linear-accent-green: rgba(142, 213, 155, 0.85);
+  --linear-accent-blue: rgba(82, 109, 230, 0.85);
+  
+  /* 通用 */
+  --linear-blur: blur(15px);
+  --linear-shadow-primary: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --linear-shadow-secondary: 0 2px 8px rgba(0, 0, 0, 0.03);
+  --linear-shadow-inner: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  
+  /* 毛玻璃效果 */
+  --linear-glass-light: rgba(255, 255, 255, 0.65);
+  --linear-glass-dark: rgba(255, 255, 255, 0.05);
+}
+
+/* 深色模式 */
+[data-theme="dark"] {
+  --linear-bg-primary: var(--linear-bg-primary-dark);
+  --linear-bg-secondary: var(--linear-bg-secondary-dark);
+  --linear-border: var(--linear-border-dark);
+}
+
+/* 浅色模式 */
+[data-theme="light"] {
+  --linear-bg-primary: var(--linear-bg-primary-light);
+  --linear-bg-secondary: var(--linear-bg-secondary-light);
+  --linear-bg-tertiary: var(--linear-bg-tertiary-light);
+  --linear-border-primary: var(--linear-border-light-primary);
+  --linear-border-secondary: var(--linear-border-light-secondary);
+  --linear-border-accent: var(--linear-border-light-accent);
+}
+```
+2. **Tailwind 配置**：如果使用 Tailwind CSS，可进行如下配置以支持设计风格。
+```javascript
+module.exports = {
+  theme: {
+    extend: {
+      backgroundImage: {
+        'linear-primary-dark': 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
+        'linear-secondary-dark': 'linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%)',
+        'linear-primary-light': 'linear-gradient(135deg, #f2f0e6 0%, #eae7d9 100%)',
+        'linear-secondary-light': 'linear-gradient(135deg, #ffffff 0%, #f9f8f3 100%)',
+        'linear-tertiary-light': 'linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%)',
+      },
+      backdropBlur: {
+        'linear': '15px',
+      },
+      boxShadow: {
+        'linear-primary': '0 4px 16px rgba(0, 0, 0, 0.06)',
+        'linear-secondary': '0 2px 8px rgba(0, 0, 0, 0.03)',
+        'linear-inner': 'inset 0 1px 0 rgba(255, 255, 255, 0.9)',
+      },
+      colors: {
+        'linear-green': 'rgba(142, 213, 155, 0.85)',
+        'linear-blue': 'rgba(82, 109, 230, 0.85)',
+      }
+    },
+  },
+}
+```
+3. **Vue 3 组件开发**：使用 Vue 3 的组合式 API 或选项式 API 开发组件，确保组件的可复用性和性能。
+
+## 资源配置
+1. **开源 UI 库**
+    - **ElementPlus**：基于 Vue 3 的一套简洁、易用、美观的 UI 组件库，提供了丰富的组件和样式，可快速搭建界面。
+    - **Naive UI**：一个面向 Vue 3 的 UI 库，具有简洁的设计和良好的交互体验，支持深色模式，可满足 Linear App 风格的需求。
+2. **图标库**
+    - **Iconify**：提供了丰富的图标资源，支持多种图标格式，可通过简单的代码引入图标。
+    - **Font Awesome**：经典的图标库，包含大量的图标，可用于按钮、标签等元素。
+
+## 交付标准
+1. 提供完整的代码文件，包括 HTML、CSS、JavaScript 或 Vue 组件文件。
+2. 代码结构清晰，注释详细，便于后续维护和扩展。
+3. 界面在不同浏览器和设备上具有良好的兼容性和响应式布局。
+4. 实现深色/浅色模式切换功能，且两种模式下的界面效果符合设计要求。
+
+## 特殊要求
+1. 确保代码的性能优化，避免出现卡顿和加载缓慢的问题。
+2. 遵循前端开发的最佳实践，保证代码的质量和安全性。
