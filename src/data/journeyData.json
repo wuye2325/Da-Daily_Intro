@@ -3,12 +3,14 @@
     "time": "1",
     "title": "发起问题讨论",
     "description": "业主发现地面停车位不足，发起问题讨论",
-    "activeRoles": ["resident"],
+    "activeRoles": ["resident","committee"],
     "uiScreenshots": {
-      "resident": "/images/usecases/step1_resident.mp4"
+      "resident": "/images/usecases/step1_resident.mp4",
+      "committee": "/images/usecases/step1_committee.mp4"
     },
     "operations": {
-      "resident": "发布问题"
+      "resident": "1-发布联名动议",
+      "committee": "2-合规性审核"
     }
   },
   {
