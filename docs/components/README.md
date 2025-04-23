@@ -15,8 +15,6 @@
 - [x] CoreFeatures - 展示产品核心功能
 - [x] UseCases - 展示应用场景与用户旅程
 
-## 开发中组件
-- [ ] Guidelines - 使用指南组件
 
 ## 组件详情
 
