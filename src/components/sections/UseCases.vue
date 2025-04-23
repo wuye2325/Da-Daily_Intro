@@ -6,7 +6,7 @@
 
       <h2 class="text-3xl font-bold text-center mb-4 text-gray-900 dark:text-white">小区治理应用场景</h2>
       <p class="text-lg text-center text-gray-600 dark:text-gray-400 mb-10 max-w-3xl mx-auto">
-        以下是地面停车位改造项目流程中四种角色的操作展示
+        基于真实案例:非机动车棚改造项目流程中四种角色的操作展示
       </p>
 
       <!-- 角色和手机展示区域 - 新结构 -->

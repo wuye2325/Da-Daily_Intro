@@ -9,142 +9,132 @@
       "committee": "/images/usecases/step1_committee.mp4"
     },
     "operations": {
-      "resident": "1-发布联名动议",
-      "committee": "2-合规性审核"
+      "resident": "1.发布联名动议",
+      "committee": "2.合规性审核"
     }
   },
   {
     "time": "2",
-    "title": "业委会接收问题",
-    "description": "业委会收到问题并开始初步评估",
-    "activeRoles": ["committee"],
+    "title": "动议成功发布",
+    "description": "业主收到动议成功发布通知,附议流程开始",
+    "activeRoles": ["resident"],
     "uiScreenshots": {
-      "committee": "/images/usecases/step2_committee.png"
+      "resident": "/images/usecases/step2_resident.mp4"
     },
     "operations": {
-      "committee": "确认接收"
+      "resident": "附议流程开始"
     }
   },
   {
     "time": "3",
-    "title": "召集调研会议",
-    "description": "业委会组织业主代表进行初步讨论",
-    "activeRoles": ["committee", "resident"],
+    "title": "附议成功",
+    "description": "联名动议议题被成功发起",
+    "activeRoles": ["resident", "property"],
     "uiScreenshots": {
-      "committee": "/images/usecases/step3_committee.png",
-      "resident": "/images/usecases/step3_resident.png"
+      "resident": "/images/usecases/step3_resident.mp4",
+      "property": "/images/usecases/step3_property.mp4"
     },
     "operations": {
-      "committee": "发布通知",
-      "resident": "接收通知"
+      "resident": "1.选择物业制作方案",
+      "property": "2.物业接收通知"
     }
   },
   {
     "time": "4",
-    "title": "物业评估",
-    "description": "物业公司进行技术可行性评估",
-    "activeRoles": ["property", "committee"],
+    "title": "物业制作方案",
+    "description": "物业公司进行可行性实施方案制作",
+    "activeRoles": ["property"],
     "uiScreenshots": {
-      "property": "/images/usecases/step4_property.png",
-      "committee": "/images/usecases/step4_committee.png"
+      "property": "/images/usecases/step4_property.mp4"
     },
     "operations": {
-      "property": "技术评估",
-      "committee": "查看结果"
+      "property": "实施方案完成上传"
     }
   },
   {
     "time": "5",
-    "title": "方案制定",
-    "description": "业委会与物业共同制定改造方案",
-    "activeRoles": ["committee", "property"],
+    "title": "推进方式判断",
+    "description": "业委会判断下一步议题推进方式",
+    "activeRoles": ["committee"],
     "uiScreenshots": {
-      "committee": "/images/usecases/step5_committee.png",
-      "property": "/images/usecases/step5_property.png"
+      "committee": "/images/usecases/step5_committee.mp4"
     },
     "operations": {
-      "committee": "制定方案",
-      "property": "提供建议"
+      "committee": "推进方式判断"
     }
   },
   {
     "time": "6",
-    "title": "社区审核",
-    "description": "方案提交社区进行合规性审核",
-    "activeRoles": ["committee", "community"],
+    "title": "附议升级",
+    "description": "方案超出业委会已获授权范围,需业主大会决策",
+    "activeRoles": ["resident"],
     "uiScreenshots": {
-      "committee": "/images/usecases/step6_committee.png",
-      "community": "/images/usecases/step6_community.png"
+      "resident": "/images/usecases/step6_resident.mp4"
     },
     "operations": {
-      "committee": "提交方案",
-      "community": "审核方案"
+      "resident": "附议升级"
     }
   },
   {
     "time": "7",
-    "title": "业主投票",
-    "description": "业主对改造方案进行投票表决",
+    "title": "异议回复",
+    "description": "业主对改造方案提出异议",
     "activeRoles": ["resident", "committee"],
     "uiScreenshots": {
       "resident": "/images/usecases/step7_resident.png",
       "committee": "/images/usecases/step7_committee.png"
     },
     "operations": {
-      "resident": "参与投票",
-      "committee": "发起投票"
+      "resident": "提出异议",
+      "committee": "回复异议"
     }
   },
   {
     "time": "8",
-    "title": "投票结果",
-    "description": "公布投票结果及下一步计划",
-    "activeRoles": ["committee", "resident", "property"],
+    "title": "方案补充",
+    "description": "物业公司提出方案补充",
+    "activeRoles": ["committee", "property"],
     "uiScreenshots": {
       "committee": "/images/usecases/step8_committee.png",
-      "resident": "/images/usecases/step8_resident.png",
       "property": "/images/usecases/step8_property.png"
     },
     "operations": {
-      "committee": "公布结果",
-      "resident": "查看结果",
-      "property": "接收通知"
+      "committee": "2.合规性审核",
+      "property": "1.发布动议"
     }
   },
   {
     "time": "9",
-    "title": "工程招标",
-    "description": "物业公司进行工程招标",
+    "title": "动议成功发布",
+    "description": "物业公司上传方案",
     "activeRoles": ["property", "committee"],
     "uiScreenshots": {
       "property": "/images/usecases/step9_property.png",
       "committee": "/images/usecases/step9_committee.png"
     },
     "operations": {
-      "property": "发布招标",
-      "committee": "监督过程"
+      "property": "1.上传补充方案",
+      "committee": "2.判断推进方式"
     }
   },
   {
     "time": "10",
-    "title": "施工准备",
-    "description": "确定施工单位并准备施工",
-    "activeRoles": ["property", "committee", "resident"],
+    "title": "快速决议",
+    "description": "是否同意物业提出的补充方案",
+    "activeRoles": ["committee", "resident"],
     "uiScreenshots": {
-      "property": "/images/usecases/step10_property.png",
       "committee": "/images/usecases/step10_committee.png",
       "resident": "/images/usecases/step10_resident.png"
     },
     "operations": {
-      "property": "发送通知",
-      "committee": "确认计划",
-      "resident": "查看通知"
+      "committee": "2.回复异议",
+      "resident": "1.提出异议"
     }
   },
   {
     "time": "11",
-    "title": "施工监督",
-    "description": "业委会与业主代表监督施工过程",
+    "title": "物业回复解释",
+    "description": "物业公司对业主提出的异议进行回复解释",
     "activeRoles": ["committee", "resident", "property"],
     "uiScreenshots": {
       "committee": "/images/usecases/step11_committee.png",
@@ -152,9 +142,9 @@
       "property": "/images/usecases/step11_property.png"
     },
     "operations": {
-      "committee": "监督工程",
-      "resident": "提供反馈",
-      "property": "施工管理"
+      "committee": "2.判断推进方式",
+      "resident": "3.收到通知",
+      "property": "1.发布动议"
     }
   },
   {
@@ -189,6 +179,23 @@
       "resident": "提交反馈",
       "committee": "收集反馈",
       "property": "改进服务"
+    }
+  },
+  {
+    "time": "14",
+    "title": "工程验收",
+    "description": "各方共同参与工程验收",
+    "activeRoles": ["committee", "property", "community", "resident"],
+    "uiScreenshots": {
+      "committee": "/images/usecases/step14_committee.png",
+      "property": "/images/usecases/step14_property.png",
+      "community": "/images/usecases/step14_community.png",
+      "resident": "/images/usecases/step14_resident.png"
+    },
+    "operations": {
+      "resident": "提交反馈",
+      "committee": "收集反馈",
+      "property": "改进服务"  
     }
   }
 ] 
