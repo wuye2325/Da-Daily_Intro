@@ -25,15 +25,6 @@
     <main class="container mx-auto px-4 pt-28 pb-16 transition-all duration-300">
       <slot></slot>
     </main>
-
-    <!-- 页脚 - 添加毛玻璃效果 -->
-    <footer class="linear-glass-footer transition-all duration-300">
-      <div class="container mx-auto px-4 py-8">
-        <div class="text-center text-gray-600 dark:text-gray-400">
-          <p>Copyright © 2025 大家得利. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 
@@ -109,20 +100,5 @@ const navItems = [
 .nav-link:hover .nav-indicator {
   width: 100%;
   opacity: 1;
-}
-
-/* 页脚毛玻璃效果 */
-.linear-glass-footer {
-  backdrop-filter: var(--linear-blur);
-  -webkit-backdrop-filter: var(--linear-blur);
-  background: var(--linear-glass-light);
-  border-top: var(--linear-border-light-primary);
-  box-shadow: var(--linear-shadow-secondary);
-}
-
-[data-theme="dark"] .linear-glass-footer {
-  background: var(--linear-glass-dark);
-  border-top: var(--linear-border-dark);
-  box-shadow: var(--linear-shadow-dark);
 }
 </style>

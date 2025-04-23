@@ -9,7 +9,6 @@
     <!-- 按照大纲顺序引入组件 -->
     <OpeningConditions />
     <CallToAction />
-    <Footer />
   </BaseLayout>
 </template>
 
@@ -20,7 +19,6 @@ import { useThemeStore } from '@/stores/theme'
 // 引入三个新开发的组件
 import OpeningConditions from '@/components/sections/OpeningConditions.vue'
 import CallToAction from '@/components/sections/CallToAction.vue'
-import Footer from '@/components/sections/Footer.vue'
 
 const themeStore = useThemeStore()
 
